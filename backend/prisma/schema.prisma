@@ -18,6 +18,7 @@ model User {
   name      String
   email     String
   profile   String?
+  password  String
   isAtive   Boolean          @default(true)
   createdAt DateTime         @default(now())
   jobApp    JobApplication[]

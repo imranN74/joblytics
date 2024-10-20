@@ -1,0 +1,7 @@
+name = "joblytics"
+main = "src/index.ts"
+compatibility_date = "2024-10-17"
+compatibility_flags = [ "nodejs_compat" ]
+
+[vars]
+DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYjI0MzVjMjItMjg4Yy00N2NlLTg4NDMtOGM1OGU3YTc2NWFlIiwidGVuYW50X2lkIjoiOGY3M2JhY2JkZjk4MmIzNzdjMzJmMmIzYWM2YmFiNDQwNGQyN2ZkNGRmOTAxNjVlNTVjMjk3NGQwMzNlYjc2ZiIsImludGVybmFsX3NlY3JldCI6ImRkYWU2YjMxLTdhN2EtNGMzZi05MWE2LWM2NDk0NGY1ZTQ0NiJ9.C-K3RU0zpifYl8sq9SFF9EpDnGb2aR2M0UQoQGs5_HE"
