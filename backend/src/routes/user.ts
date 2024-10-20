@@ -9,4 +9,7 @@ router.post("/sigup", (req: Request, res: Response) => {});
 //user signin route
 router.post("/sigin", (req: Request, res: Response) => {});
 
+//update user userinfo
+router.post("/update", (req: Request, res: Response) => {});
+
 export default router;
