@@ -4,8 +4,6 @@ import { StatusDropDown } from "./StatusDropDown";
 import { AppValues } from "./AppValues";
 import { NotesButton } from "./NotesButton";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL;
-
 export const AppContainer = () => {
   return (
     <div className="border rounded-xl md:px-5 shadow-md mt-2">
