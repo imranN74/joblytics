@@ -1,6 +1,6 @@
 export const NotesButton = () => {
   return (
-    <div className="flex cursor-pointer">
+    <div className="flex cursor-pointer" title="your note">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -28,6 +28,7 @@ model JobApplication {
   id          String    @id @default(uuid())
   company     String
   role        String?
+  location    String?
   appliedDate DateTime
   appStatus   String
   appNote     String?

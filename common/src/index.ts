@@ -24,6 +24,8 @@ export const updateUserPassword = z.object({
 export const createJobApplication = z.object({
   company: z.string(),
   role: z.string().optional(),
+  location: z.string().optional(),
+  appNote: z.string().optional(),
   appliedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   applicationStatus: z.string(),
   appStatus: z.string().optional(),

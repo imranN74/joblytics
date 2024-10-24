@@ -9,7 +9,7 @@ export const StatusDropDown = () => {
         setBgColor("bg-yellow-400");
         break;
       case "rejected":
-        setBgColor("bg-red-400");
+        setBgColor("bg-red-500");
         break;
       case "interview":
         setBgColor("bg-green-400");
@@ -33,11 +33,11 @@ export const StatusDropDown = () => {
 
   return (
     <div
-      className={`font-semibold border ${bgColor} border-black rounded-md md:px-2`}
+      className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2`}
     >
       <select
         title="status"
-        className={`focus:outline-none w-32 py-2 ${bgColor}`}
+        className={`focus:outline-none w-full py-2 ${bgColor}`}
         onChange={handleStatusChange}
       >
         <option value={"applied"}>Applied</option>

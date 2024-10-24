@@ -1,6 +1,6 @@
 export const EditButton = () => {
   return (
-    <div className="cursor-pointer pl-4">
+    <div className="cursor-pointer pl-4" title="Edit">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
