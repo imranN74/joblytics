@@ -1,14 +1,15 @@
 import { useRecoilValue } from "recoil";
-import { modalFormAtom } from "../store/atoms/atom";
-import { InputBox } from "./InputBox";
+import { InputBox } from "../InputBox";
 import { StatusDropDown } from "./StatusDropDown";
-import { TextArea } from "./TextArea";
-import { SubmitButton } from "./SubmitButton";
+import { TextArea } from "../TextArea";
+import { SubmitButton } from "../SubmitButton";
+import { modalFormAtom } from "../../store/atoms/atom";
 
 export const CreateApplicationForm = () => {
   const modalState = useRecoilValue(modalFormAtom);
 
   function handleChange() {}
+  function onClickSubmit() {}
 
   return (
     <div
@@ -20,8 +21,8 @@ export const CreateApplicationForm = () => {
         <div className="px-3 md:px-0">
           <div className="md:flex md:justify-between">
             <InputBox
-              // value=""
-              placeHolder="Company"
+              value=""
+              labelValue="Company"
               typeValue="text"
               handleOnChange={() => {
                 handleChange();
@@ -30,8 +31,8 @@ export const CreateApplicationForm = () => {
               isRequired={true}
             />
             <InputBox
-              // value=""
-              placeHolder="Role"
+              value=""
+              labelValue="Role"
               typeValue="text"
               handleOnChange={() => {
                 handleChange();
@@ -42,8 +43,8 @@ export const CreateApplicationForm = () => {
           </div>
           <div className="md:flex md:justify-around">
             <InputBox
-              // value=""
-              placeHolder="Location"
+              value=""
+              labelValue="Location"
               typeValue="text"
               handleOnChange={() => {
                 handleChange();
@@ -52,8 +53,8 @@ export const CreateApplicationForm = () => {
               isRequired={true}
             />
             <InputBox
-              // value=""
-              placeHolder="Applied Date"
+              value=""
+              labelValue="Applied Date"
               typeValue="date"
               handleOnChange={() => {
                 handleChange();
@@ -70,7 +71,7 @@ export const CreateApplicationForm = () => {
             <TextArea />
           </div>
           <div className="flex justify-center mt-2">
-            <SubmitButton value="Add" />
+            <SubmitButton handleClick={onClickSubmit} value="Add" />
           </div>
         </div>
       </div>

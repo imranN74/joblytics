@@ -1,10 +1,12 @@
 import express, { Application, Request, Response } from "express";
 import userRouter from "./routes/user";
 import jobRouter from "./routes/jobapp";
+import cors from "cors";
 
 const PORT = process.env.PORT || 3000;
 const app: Application = express();
 app.use(express.json());
+app.use(cors());
 
 export const statusCode = {
   notFound: 404,

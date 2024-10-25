@@ -1,6 +1,6 @@
-import { AppContainer } from "../components/AppContainer";
-import { AddButton } from "../components/AddButton";
-import { CreateApplicationForm } from "../components/CreateApplicationForm";
+import { AppContainer } from "../components/jobContainer/AppContainer";
+import { AddButton } from "../components/jobContainer/AddButton";
+import { CreateApplicationForm } from "../components/jobContainer/CreateApplicationForm";
 import { useRecoilValue } from "recoil";
 import { modalFormAtom } from "../store/atoms/atom";
 import { JobAppMsg } from "../components/JobAppMsg";

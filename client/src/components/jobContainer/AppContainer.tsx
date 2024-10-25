@@ -3,8 +3,40 @@ import { EditButton } from "./EditButton";
 import { StatusDropDown } from "./StatusDropDown";
 import { AppValues } from "./AppValues";
 import { NotesButton } from "./NotesButton";
+import { fetchDataSelector } from "../../store/atoms/atom";
+import { appDataAtom } from "../../store/atoms/atom";
+import { useRecoilValueLoadable, useRecoilState } from "recoil";
+import { useEffect } from "react";
 
 export const AppContainer = () => {
+  type JobApp = {
+    company: string;
+    role: string;
+    location: string;
+    appliedDate: string;
+    id: string;
+    appStatus: boolean;
+    appNote: string;
+    createdApp: string;
+    userId: string;
+  };
+
+  const fetchDataValue = useRecoilValueLoadable(fetchDataSelector("/job"));
+  // const [appData, setAppData] = useRecoilState<JobApp[]>(
+  //   appDataAtom("bulkJobApp")
+  // );
+  if (fetchDataValue.state === "hasValue") {
+    console.log(fetchDataValue);
+  }
+
+  // useEffect(() => {
+  //   if (fetchDataValue.state === "hasValue") {
+  //     setAppData(fetchDataValue.contents.data);
+  //   }
+  // }, []);
+
+  // console.log(appData);
+
   return (
     <div className="border rounded-xl md:px-5 shadow-md mt-2">
       <div>

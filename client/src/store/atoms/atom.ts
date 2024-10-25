@@ -2,6 +2,18 @@ import { atom, selectorFamily, atomFamily } from "recoil";
 import axios from "axios";
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
+// type JobApp = {
+//   company: string;
+//   role: string;
+//   location: string;
+//   appliedDate: string;
+//   id: string;
+//   appStatus: boolean;
+//   appNote: string;
+//   createdApp: string;
+//   userId: string;
+// };
+
 //for modal form visibility
 export const modalFormAtom = atom({
   key: "modalView",
@@ -22,4 +34,11 @@ export const fetchDataSelector = selectorFamily({
       return response.data;
     };
   },
+});
+
+//for loggedin state
+const isToken = localStorage.getItem("jwt");
+export const isLoggedIn = atom({
+  key: "isLoggedIn",
+  default: isToken,
 });

@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { modalFormAtom } from "../store/atoms/atom";
+import { modalFormAtom } from "../../store/atoms/atom";
 
 export const AddButton = () => {
   const [modalState, setModalState] = useRecoilState(modalFormAtom);
