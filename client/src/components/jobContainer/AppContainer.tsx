@@ -8,6 +8,7 @@ import { appDataAtom } from "../../store/atoms/atom";
 import { useRecoilValueLoadable, useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { Loader } from "./loader/Loader";
+import { InitAdd } from "./InitAdd";
 
 export const AppContainer = () => {
   type JobApp = {
@@ -26,17 +27,21 @@ export const AppContainer = () => {
     appDataAtom("bulkJobApp")
   );
 
-  if (fetchDataValue.state === "hasValue") {
-    console.log(fetchDataValue.contents.data);
-  }
-
   useEffect(() => {
     if (fetchDataValue.state === "hasValue") {
       setAppData(fetchDataValue.contents.data);
     }
   }, [fetchDataValue]);
 
-  console.log("appdata", appData);
+  console.log(appData);
+
+  if (appData.length === 0 && fetchDataValue.state != "loading") {
+    return (
+      <div>
+        <InitAdd />
+      </div>
+    );
+  }
 
   if (fetchDataValue.state === "loading") {
     return (
@@ -45,7 +50,7 @@ export const AppContainer = () => {
       </div>
     );
   } else if (fetchDataValue.state === "hasValue") {
-    return appData.map((data, index) => {
+    return appData.map((data) => {
       const dateObject = new Date(data.appliedDate);
 
       const fullDate = String(dateObject).split(" ");
@@ -55,7 +60,7 @@ export const AppContainer = () => {
         <div
           className="border rounded-xl md:px-5 shadow-md mt-2 capitalize"
           id={data.id}
-          key={index}
+          key={data.id}
         >
           <div>
             <div className="flex justify-between px-5 py-2">
@@ -63,7 +68,7 @@ export const AppContainer = () => {
                 <NotesButton />
               </div>
               <div>
-                <StatusDropDown status={data.appStatus} />
+                <StatusDropDown status={data.appStatus} id={data.id} />
               </div>
               <div className="flex">
                 <DeleteButton />

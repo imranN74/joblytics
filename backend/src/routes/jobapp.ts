@@ -7,6 +7,7 @@ import {
 } from "@imrannazir/joblytics-zod";
 import { PrismaClient } from "@prisma/client";
 import userAuthorization from "../middleware/user";
+import { updateAppStatus } from "@imrannazir/joblytics-zod";
 
 const prisma = new PrismaClient();
 const router = Router();
@@ -34,6 +35,7 @@ router.get("/", userAuthorization, async (req: Request, res: Response) => {
           },
         },
       },
+      orderBy: [{ createdAt: "desc" }],
     });
     if (response) {
       res.status(statusCode.accepted).json({
@@ -94,6 +96,46 @@ router.post(
       console.log(error);
       res.status(statusCode.serverError).json({
         message: "something went wrong while adding application",
+      });
+    }
+  }
+);
+
+//update application status
+router.post(
+  "/status/:id",
+  userAuthorization,
+  async (req: Request, res: Response) => {
+    const appId = req.params.id;
+    const validateData = updateAppStatus.safeParse(req.body);
+    try {
+      if (validateData.error) {
+        console.log(validateData.error);
+        res.status(statusCode.badRequest).json({
+          message: "Error while updating status,Invalid Input",
+        });
+        return;
+      }
+
+      if (validateData.success) {
+        const { applicationStatus } = validateData.data;
+        await prisma.jobApplication.update({
+          data: {
+            appStatus: applicationStatus,
+          },
+          where: {
+            id: appId,
+          },
+        });
+        res.status(statusCode.created).json({
+          message: "Status updated successfully",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "Error while updating application status",
       });
     }
   }

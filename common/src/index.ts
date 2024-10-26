@@ -42,6 +42,10 @@ export const updateJobApplication = z.object({
   applicationStatus: z.string(),
 });
 
+export const updateAppStatus = z.object({
+  applicationStatus: z.string(),
+});
+
 //user
 export type SignupInput = z.infer<typeof signupInput>;
 export type SigninInput = z.infer<typeof signinInput>;
@@ -52,3 +56,4 @@ export type UpdatePassword = z.infer<typeof updateUserPassword>;
 export type UpdateApplication = z.infer<typeof updateJobApplication>;
 export type DeleteApplication = z.infer<typeof deleteJobApplication>;
 export type CreateApplication = z.infer<typeof createJobApplication>;
+export type UpdateAppstatus = z.infer<typeof updateAppStatus>;

@@ -13,7 +13,7 @@ export const Applications = () => {
       <div className="col-span-full md:col-start-3 md:col-end-8">
         <div className="flex justify-between items-center px-2 md:px-5 sticky top-0 py-2 rounded-md bg-red-300">
           <JobAppMsg
-            msg={modalView ? "Add Application" : "Your Applicatuons"}
+            msg={modalView ? "Add Application" : "Your Applications"}
           />
           <AddButton />
         </div>
