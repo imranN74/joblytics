@@ -20,6 +20,20 @@ router.get("/", userAuthorization, async (req: Request, res: Response) => {
         isActive: true,
         userId: userid,
       },
+      select: {
+        id: true,
+        company: true,
+        role: true,
+        location: true,
+        appliedDate: true,
+        appStatus: true,
+        appNote: true,
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
     if (response) {
       res.status(statusCode.accepted).json({

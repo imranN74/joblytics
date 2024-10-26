@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const StatusDropDown = () => {
+export const StatusDropDown: React.FC<{ status: string }> = ({ status }) => {
   const [bgColor, setBgColor] = useState("");
 
   function handleColorChange(value: string) {
@@ -36,11 +36,16 @@ export const StatusDropDown = () => {
       className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2`}
     >
       <select
-        title="status"
+        title={status}
         className={`focus:outline-none w-full py-2 ${bgColor}`}
         onChange={handleStatusChange}
       >
-        <option value={"applied"}>Applied</option>
+        <option value={status} className="capitalize" disabled>
+          {status}
+        </option>
+        <option className="" value="applied">
+          Applied
+        </option>
         <option value={"interview"}>Interview Scheduled</option>
         <option value={"rejected"}>Rejected</option>
         <option value={"neglect"}>Neglect</option>

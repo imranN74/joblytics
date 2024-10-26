@@ -19,7 +19,7 @@ model User {
   email     String
   profile   String?
   password  String
-  isAtive   Boolean          @default(true)
+  isActive  Boolean          @default(true)
   createdAt DateTime         @default(now())
   jobApp    JobApplication[]
 }
@@ -35,6 +35,6 @@ model JobApplication {
   isActive    Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime?
-  User        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
   userId      String
 }

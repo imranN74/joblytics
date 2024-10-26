@@ -24,15 +24,6 @@ export const Applications = () => {
         ) : (
           <div>
             <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
-            <AppContainer />
           </div>
         )}
       </div>

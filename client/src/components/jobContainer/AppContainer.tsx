@@ -7,58 +7,84 @@ import { fetchDataSelector } from "../../store/atoms/atom";
 import { appDataAtom } from "../../store/atoms/atom";
 import { useRecoilValueLoadable, useRecoilState } from "recoil";
 import { useEffect } from "react";
+import { Loader } from "./loader/Loader";
 
 export const AppContainer = () => {
   type JobApp = {
     company: string;
     role: string;
     location: string;
-    appliedDate: string;
+    appliedDate: Date;
     id: string;
-    appStatus: boolean;
     appNote: string;
-    createdApp: string;
-    userId: string;
+    name: string;
+    appStatus: string;
   };
 
   const fetchDataValue = useRecoilValueLoadable(fetchDataSelector("/job"));
-  // const [appData, setAppData] = useRecoilState<JobApp[]>(
-  //   appDataAtom("bulkJobApp")
-  // );
+  const [appData, setAppData] = useRecoilState<JobApp[]>(
+    appDataAtom("bulkJobApp")
+  );
+
   if (fetchDataValue.state === "hasValue") {
-    console.log(fetchDataValue);
+    console.log(fetchDataValue.contents.data);
   }
 
-  // useEffect(() => {
-  //   if (fetchDataValue.state === "hasValue") {
-  //     setAppData(fetchDataValue.contents.data);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (fetchDataValue.state === "hasValue") {
+      setAppData(fetchDataValue.contents.data);
+    }
+  }, [fetchDataValue]);
 
-  // console.log(appData);
+  console.log("appdata", appData);
 
-  return (
-    <div className="border rounded-xl md:px-5 shadow-md mt-2">
-      <div>
-        <div className="flex justify-between px-5 py-2">
-          <div>
-            <NotesButton />
-          </div>
-          <div>
-            <StatusDropDown />
-          </div>
-          <div className="flex">
-            <DeleteButton />
-            <EditButton />
-          </div>
-        </div>
-        <div className="flex justify-around items-center py-5">
-          <AppValues value="Google" titleValue="Company" />
-          <AppValues value="SDE-1" titleValue="Role" />
-          <AppValues value="Banglore" titleValue="Location" />
-          <AppValues value="2 Oct,2024" titleValue="Applied Date" />
-        </div>
+  if (fetchDataValue.state === "loading") {
+    return (
+      <div className="flex justify-center h-screen items-center">
+        <Loader />
       </div>
-    </div>
-  );
+    );
+  } else if (fetchDataValue.state === "hasValue") {
+    return appData.map((data, index) => {
+      const dateObject = new Date(data.appliedDate);
+
+      const fullDate = String(dateObject).split(" ");
+      const finDate = `${fullDate[2]} ${fullDate[1]},${fullDate[3]}`;
+
+      return (
+        <div
+          className="border rounded-xl md:px-5 shadow-md mt-2 capitalize"
+          id={data.id}
+          key={index}
+        >
+          <div>
+            <div className="flex justify-between px-5 py-2">
+              <div>
+                <NotesButton />
+              </div>
+              <div>
+                <StatusDropDown status={data.appStatus} />
+              </div>
+              <div className="flex">
+                <DeleteButton />
+                <EditButton />
+              </div>
+            </div>
+            <div className="flex justify-around items-center py-5">
+              <AppValues value={data.company} titleValue="Company" />
+              <AppValues
+                value={data.role ? data.role : "Add Role"}
+                titleValue="Role"
+              />
+              <AppValues
+                value={data.location ? data.location : "add location"}
+                titleValue="Location"
+              />
+              <AppValues value={finDate} titleValue="Applied Date" />
+            </div>
+          </div>
+        </div>
+      );
+    });
+  }
 };
