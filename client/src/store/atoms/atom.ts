@@ -42,7 +42,7 @@ export const fetchDataSelector = selectorFamily({
 
 //for loggedin state
 const isToken = localStorage.getItem("jwt");
-export const isLoggedIn = atom({
+export const isAuthAtom = atom({
   key: "isLoggedIn",
   default: isToken,
 });
