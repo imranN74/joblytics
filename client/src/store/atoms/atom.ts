@@ -9,7 +9,9 @@ type JobApp = {
   appliedDate: Date;
   id: string;
   appNote: string;
-  name: string;
+  user: {
+    name: string;
+  };
   appStatus: string;
 };
 

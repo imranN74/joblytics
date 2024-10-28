@@ -18,7 +18,9 @@ export const AppContainer = () => {
     appliedDate: Date;
     id: string;
     appNote: string;
-    name: string;
+    user: {
+      name: string;
+    };
     appStatus: string;
   };
 
@@ -68,7 +70,11 @@ export const AppContainer = () => {
                 <NotesButton />
               </div>
               <div>
-                <StatusDropDown status={data.appStatus} id={data.id} />
+                <StatusDropDown
+                  page="update"
+                  status={data.appStatus}
+                  id={data.id}
+                />
               </div>
               <div className="flex">
                 <DeleteButton />

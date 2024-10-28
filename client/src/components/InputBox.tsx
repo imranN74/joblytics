@@ -31,6 +31,7 @@ export const InputBox: React.FC<InputValues> = ({
         </label>
         <input
           value={value}
+          // maxLength={15}
           name={idValue}
           type={typeValue}
           onChange={handleOnChange}
