@@ -1,14 +1,8 @@
 import { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { appDataAtom } from "../store/atoms/atom";
 
 export const Profile = () => {
   const [profileView, setProfileView] = useState(false);
-  const userInfo = useRecoilValue(appDataAtom("bulkJobApp"))[0];
-  console.log("profile...", userInfo);
-  const userName = userInfo?.user?.name ?? "Guest";
-  const name = userName.split(" ")[0];
-
+  const name = localStorage.getItem("name");
   function handleProfileDrop() {
     setProfileView(!profileView);
   }

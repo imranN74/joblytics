@@ -8,9 +8,9 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(isAuthAtom);
   return (
-    <div className="sticky top-0 rounded-b-xl">
+    <div className="sticky top-0 rounded-b-xl z-[1000]">
       {/* <!-- component --> */}
-      <nav className="bg-gray-100 shadow shadow-gray-300 w-100 px-8 md:px-auto">
+      <nav className="bg-gray-100 shadow shadow-gray-300 w-100 px-2 md:px-auto">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
           {/* <!-- Logo --> */}
           <div className="text-indigo-500 md:order-1">

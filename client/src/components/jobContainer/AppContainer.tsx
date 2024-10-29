@@ -35,8 +35,6 @@ export const AppContainer = () => {
     }
   }, [fetchDataValue]);
 
-  console.log(appData);
-
   if (appData.length === 0 && fetchDataValue.state != "loading") {
     return (
       <div>
@@ -52,6 +50,9 @@ export const AppContainer = () => {
       </div>
     );
   } else if (fetchDataValue.state === "hasValue") {
+    const userName = appData[0].user.name;
+    const name = userName.split(" ")[0];
+    localStorage.setItem("name", name);
     return appData.map((data) => {
       const dateObject = new Date(data.appliedDate);
 

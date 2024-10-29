@@ -1,9 +1,6 @@
-import { Navbar } from "./Navbar";
-
 export const Land = () => {
   return (
     <div>
-      <Navbar />
       <div className="flex justify-center h- items-center">
         <div className="bg-yellow-300 inline-block shadow-md rounded-md px-5 py-5">
           <div className="flex items-center font-mono flex-col font-bold text-2xl md:text-4xl h-full">
