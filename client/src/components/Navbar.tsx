@@ -9,31 +9,26 @@ export const Navbar = () => {
   const isLoggedIn = useRecoilValue(isAuthAtom);
   return (
     <div className="sticky top-0 rounded-b-xl z-[1000]">
-      {/* <!-- component --> */}
       <nav className="bg-gray-100 shadow shadow-gray-300 w-100 px-2 md:px-auto">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
-          {/* <!-- Logo --> */}
           <div className="text-indigo-500 md:order-1">
-            {/* <!-- Heroicon - Chip Outline --> */}
             <a href="/applications" title="jobLutics">
               <Logo />
             </a>
           </div>
           <div className="text-black order-3 w-full md:w-auto md:order-2">
             <ul className="flex font-normal justify-between">
-              {/* <!-- Active Link = text-indigo-500
-                Inactive Link = hover:text-indigo-500 --> */}
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="#">Applications</a>
+                <a href="/applications">Applications</a>
               </li>
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="#">Analytics</a>
+                <a href="">Analytics</a>
               </li>
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="#">Contacts</a>
+                <a href="">Contacts</a>
               </li>
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="#">About</a>
+                <a href="">About</a>
               </li>
             </ul>
           </div>

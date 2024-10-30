@@ -4,7 +4,7 @@ type InputValues = {
   placeHolder?: string;
   labelValue: string;
   value: string;
-
+  maxlength?: number;
   typeValue: string;
   handleOnChange: (e: ChangeEvent<HTMLInputElement>) => void;
   idValue: string;
@@ -19,6 +19,7 @@ export const InputBox: React.FC<InputValues> = ({
   handleOnChange,
   idValue,
   isRequired,
+  maxlength,
 }) => {
   return (
     <div>
@@ -31,7 +32,7 @@ export const InputBox: React.FC<InputValues> = ({
         </label>
         <input
           value={value}
-          // maxLength={15}
+          maxLength={maxlength}
           name={idValue}
           type={typeValue}
           onChange={handleOnChange}

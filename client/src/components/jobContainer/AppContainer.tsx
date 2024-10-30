@@ -7,7 +7,7 @@ import { fetchDataSelector } from "../../store/atoms/atom";
 import { appDataAtom } from "../../store/atoms/atom";
 import { useRecoilValueLoadable, useRecoilState } from "recoil";
 import { useEffect } from "react";
-import { Loader } from "./loader/Loader";
+import { Loader } from "../loader/Loader";
 import { InitAdd } from "./InitAdd";
 
 export const AppContainer = () => {
@@ -61,7 +61,7 @@ export const AppContainer = () => {
 
       return (
         <div
-          className="border rounded-xl md:px-5 shadow-md mt-2 capitalize"
+          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md"
           id={data.id}
           key={data.id}
         >

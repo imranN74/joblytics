@@ -1,11 +1,11 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { InputBox } from "../InputBox";
 import { StatusDropDown } from "./StatusDropDown";
 import { TextArea } from "../TextArea";
 import { SubmitButton } from "../SubmitButton";
 import { modalFormAtom } from "../../store/atoms/atom";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import { CreateApplication } from "@imrannazir/joblytics-zod";
 import { toast } from "react-toastify";
@@ -14,12 +14,12 @@ const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const CreateApplicationForm = () => {
   const token = localStorage.getItem("jwt");
-  // const naviaget = useNavigate();
-  const modalState = useRecoilValue(modalFormAtom);
+  const navigate = useNavigate();
+  const [modalState, setModalView] = useRecoilState(modalFormAtom);
   const [formValue, setFormValue] = useState<CreateApplication>({
     company: "",
     appliedDate: "",
-    applicationStatus: "",
+    applicationStatus: "applied",
     role: "",
     location: "",
     appNote: "",
@@ -35,28 +35,34 @@ export const CreateApplicationForm = () => {
   }
   console.log(formValue);
   async function onClickSubmit() {
-    try {
-      const response = await axios.post(
-        `${BACKEND_BASE_URL}/job/create`,
-        {
-          company: formValue.company,
-          appliedDate: formValue.appliedDate,
-          applicationStatus: formValue.applicationStatus,
-          role: formValue.role,
-          location: formValue.location,
-          appNote: formValue.appNote,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+    const { company, appliedDate, applicationStatus } = formValue;
+    if (!company && !appliedDate && !applicationStatus) {
+      toast.warn("Required fields are empty");
+    } else {
+      try {
+        const response = await axios.post(
+          `${BACKEND_BASE_URL}/job/create`,
+          {
+            company: formValue.company,
+            appliedDate: formValue.appliedDate,
+            applicationStatus: formValue.applicationStatus,
+            role: formValue.role,
+            location: formValue.location,
+            appNote: formValue.appNote,
           },
-        }
-      );
-      toast.success(response.data.message);
-      // naviaget("/applications");
-      window.location.reload();
-    } catch (error: any) {
-      toast.warning(error.response.data.message);
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        toast.success(response.data.message);
+        // navigate("/applications");
+        setModalView(false);
+        // window.location.reload();
+      } catch (error: any) {
+        toast.warning(error.response.data.message);
+      }
     }
   }
 
@@ -76,6 +82,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="company"
               isRequired={true}
+              maxlength={10}
             />
             <InputBox
               value={formValue.role ? formValue.role : ""}
@@ -84,6 +91,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="role"
               isRequired={true}
+              maxlength={10}
             />
           </div>
           <div className="md:flex md:justify-around">
@@ -94,6 +102,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="location"
               isRequired={true}
+              maxlength={10}
             />
             <InputBox
               value={formValue.appliedDate}
@@ -102,6 +111,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="appliedDate"
               isRequired={true}
+              maxlength={10}
             />
           </div>
           <div className="mt-2">

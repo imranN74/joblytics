@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
   const [profileView, setProfileView] = useState(false);
@@ -7,8 +8,16 @@ export const Profile = () => {
     setProfileView(!profileView);
   }
 
+  const navigate = useNavigate();
+  function handleLogoutClick() {
+    setProfileView(false);
+    localStorage.removeItem("name");
+    localStorage.removeItem("jwt");
+    navigate("/signin");
+  }
+
   return (
-    <div>
+    <div title={name ? name : ""}>
       <div className="relative font-[sans-serif] w-max mx-auto">
         <button
           onClick={handleProfileDrop}
@@ -28,9 +37,9 @@ export const Profile = () => {
             viewBox="0 0 24 24"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M11.99997 18.1669a2.38 2.38 0 0 1-1.68266-.69733l-9.52-9.52a2.38 2.38 0 1 1 3.36532-3.36532l7.83734 7.83734 7.83734-7.83734a2.38 2.38 0 1 1 3.36532 3.36532l-9.52 9.52a2.38 2.38 0 0 1-1.68266.69734z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
               data-original="#000000"
             />
           </svg>
@@ -42,7 +51,12 @@ export const Profile = () => {
             profileView ? "block" : "hidden"
           }`}
         >
-          <li className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer">
+          <li
+            onClick={() => {
+              setProfileView(false);
+            }}
+            className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -56,7 +70,10 @@ export const Profile = () => {
             </svg>
             View profile
           </li>
-          <li className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer">
+          <li
+            onClick={handleLogoutClick}
+            className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

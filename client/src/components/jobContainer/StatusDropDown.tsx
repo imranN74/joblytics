@@ -82,7 +82,7 @@ export const StatusDropDown: React.FC<DropDown> = ({
         name="applicationStatus"
         id={id}
         title={appStatusValue.applicationStatus}
-        className={`focus:outline-none w-full py-2 ${bgColor} capitalize`}
+        className={`focus:outline-none w-32 md:w-full md:py-2 py-1 ${bgColor} capitalize`}
         onChange={page === "create" ? handleCreateStatus : handleStatusChange}
         value={appStatusValue.applicationStatus}
       >
