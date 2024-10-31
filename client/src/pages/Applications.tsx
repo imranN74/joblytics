@@ -4,6 +4,7 @@ import { CreateApplicationForm } from "../components/jobContainer/CreateApplicat
 import { useRecoilValue } from "recoil";
 import { modalFormAtom } from "../store/atoms/atom";
 import { JobAppMsg } from "../components/JobAppMsg";
+import { RefreshIcon } from "../components/jobContainer/RefreshIcon";
 
 export const Applications = () => {
   const modalView = useRecoilValue(modalFormAtom);
@@ -15,6 +16,7 @@ export const Applications = () => {
           <JobAppMsg
             msg={modalView ? "Add Application" : "Your Applications"}
           />
+          {!modalView ? <RefreshIcon /> : ""}
           <AddButton />
         </div>
         {modalView ? (

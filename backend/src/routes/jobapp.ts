@@ -38,8 +38,9 @@ router.get("/", userAuthorization, async (req: Request, res: Response) => {
       orderBy: [{ createdAt: "desc" }],
     });
     if (response) {
+      console.log(response);
       res.status(statusCode.accepted).json({
-        data: response,
+        response,
         message: "applications fetched",
       });
     }

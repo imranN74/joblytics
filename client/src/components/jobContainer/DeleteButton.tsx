@@ -1,6 +1,6 @@
 export const DeleteButton = () => {
   return (
-    <div className="cursor-pointer" title="Delete">
+    <div className="cursor-pointer px-1 md:px-3" title="Delete">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

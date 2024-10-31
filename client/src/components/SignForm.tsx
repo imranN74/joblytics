@@ -85,7 +85,6 @@ export const SignForm: React.FC<{ page: string }> = ({ page }) => {
             typeValue="text"
             handleOnChange={handleChange}
             idValue="name"
-            isRequired={true}
           />
         ) : (
           ""
@@ -96,7 +95,6 @@ export const SignForm: React.FC<{ page: string }> = ({ page }) => {
           typeValue="email"
           handleOnChange={handleChange}
           idValue="email"
-          isRequired={true}
         />
         {page === "signup" ? (
           <InputBox
@@ -106,7 +104,6 @@ export const SignForm: React.FC<{ page: string }> = ({ page }) => {
             typeValue="text"
             handleOnChange={handleChange}
             idValue="profile"
-            isRequired={true}
           />
         ) : (
           ""
@@ -118,7 +115,6 @@ export const SignForm: React.FC<{ page: string }> = ({ page }) => {
           typeValue="password"
           handleOnChange={handleChange}
           idValue="password"
-          isRequired={true}
         />
 
         {page === "signup" ? (
@@ -128,7 +124,6 @@ export const SignForm: React.FC<{ page: string }> = ({ page }) => {
             typeValue="password"
             handleOnChange={handleChange}
             idValue="cnfpassword"
-            isRequired={true}
           />
         ) : (
           ""

@@ -9,6 +9,7 @@ import { useRecoilValueLoadable, useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { Loader } from "../loader/Loader";
 import { InitAdd } from "./InitAdd";
+import { ReminderIcon } from "./ReminderIcon";
 
 export const AppContainer = () => {
   type JobApp = {
@@ -31,11 +32,11 @@ export const AppContainer = () => {
 
   useEffect(() => {
     if (fetchDataValue.state === "hasValue") {
-      setAppData(fetchDataValue.contents.data);
+      setAppData(fetchDataValue.contents.response);
     }
   }, [fetchDataValue]);
 
-  if (appData.length === 0 && fetchDataValue.state != "loading") {
+  if ((appData?.length ?? 0) === 0 && fetchDataValue.state != "loading") {
     return (
       <div>
         <InitAdd />
@@ -61,7 +62,7 @@ export const AppContainer = () => {
 
       return (
         <div
-          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md"
+          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1"
           id={data.id}
           key={data.id}
         >
@@ -80,16 +81,17 @@ export const AppContainer = () => {
               <div className="flex">
                 <DeleteButton />
                 <EditButton />
+                <ReminderIcon />
               </div>
             </div>
             <div className="flex justify-around items-center py-5">
               <AppValues value={data.company} titleValue="Company" />
               <AppValues
-                value={data.role ? data.role : "Add Role"}
+                value={data.role ? data.role : "role"}
                 titleValue="Role"
               />
               <AppValues
-                value={data.location ? data.location : "add location"}
+                value={data.location ? data.location : "location"}
                 titleValue="Location"
               />
               <AppValues value={finDate} titleValue="Applied Date" />

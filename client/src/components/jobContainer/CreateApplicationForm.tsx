@@ -5,7 +5,6 @@ import { TextArea } from "../TextArea";
 import { SubmitButton } from "../SubmitButton";
 import { modalFormAtom } from "../../store/atoms/atom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import { CreateApplication } from "@imrannazir/joblytics-zod";
 import { toast } from "react-toastify";
@@ -14,7 +13,7 @@ const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const CreateApplicationForm = () => {
   const token = localStorage.getItem("jwt");
-  const navigate = useNavigate();
+
   const [modalState, setModalView] = useRecoilState(modalFormAtom);
   const [formValue, setFormValue] = useState<CreateApplication>({
     company: "",
@@ -56,10 +55,9 @@ export const CreateApplicationForm = () => {
             },
           }
         );
+
         toast.success(response.data.message);
-        // navigate("/applications");
         setModalView(false);
-        // window.location.reload();
       } catch (error: any) {
         toast.warning(error.response.data.message);
       }
@@ -81,7 +79,6 @@ export const CreateApplicationForm = () => {
               typeValue="text"
               handleOnChange={handleChange}
               idValue="company"
-              isRequired={true}
               maxlength={10}
             />
             <InputBox
@@ -90,7 +87,6 @@ export const CreateApplicationForm = () => {
               typeValue="text"
               handleOnChange={handleChange}
               idValue="role"
-              isRequired={true}
               maxlength={10}
             />
           </div>
@@ -101,7 +97,6 @@ export const CreateApplicationForm = () => {
               typeValue="text"
               handleOnChange={handleChange}
               idValue="location"
-              isRequired={true}
               maxlength={10}
             />
             <InputBox
@@ -110,7 +105,6 @@ export const CreateApplicationForm = () => {
               typeValue="date"
               handleOnChange={handleChange}
               idValue="appliedDate"
-              isRequired={true}
               maxlength={10}
             />
           </div>
