@@ -5,11 +5,18 @@ import { AppValues } from "./AppValues";
 import { NotesButton } from "./NotesButton";
 import { fetchDataSelector } from "../../store/atoms/atom";
 import { appDataAtom } from "../../store/atoms/atom";
-import { useRecoilValueLoadable, useRecoilState } from "recoil";
+import {
+  useRecoilValueLoadable,
+  useRecoilState,
+  useRecoilRefresher_UNSTABLE,
+} from "recoil";
 import { useEffect } from "react";
 import { Loader } from "../loader/Loader";
 import { InitAdd } from "./InitAdd";
 import { ReminderIcon } from "./ReminderIcon";
+import { Contacts } from "../jobContainer/Contacts";
+import { isJobAppUpdate } from "../../store/atoms/atom";
+import { toast } from "react-toastify";
 
 export const AppContainer = () => {
   type JobApp = {
@@ -30,9 +37,38 @@ export const AppContainer = () => {
     appDataAtom("bulkJobApp")
   );
 
+  const [isUpdatedStateValue, setIsUpdatedStateValue] =
+    useRecoilState(isJobAppUpdate);
+
+  const refreshFetchedData = useRecoilRefresher_UNSTABLE(
+    fetchDataSelector("/job")
+  );
+
+  //re-render the component if some changes occured like delete, update etc
   useEffect(() => {
-    if (fetchDataValue.state === "hasValue") {
-      setAppData(fetchDataValue.contents.response);
+    try {
+      if (!isUpdatedStateValue) {
+        return;
+      } else {
+        refreshFetchedData();
+        if (fetchDataValue.state === "hasValue") {
+          setAppData(fetchDataValue.contents.response);
+        }
+        setIsUpdatedStateValue(false);
+      }
+    } catch (error) {
+      toast.warning("something went wrong");
+    }
+  }, [isUpdatedStateValue]);
+
+  //initial mount on page load
+  useEffect(() => {
+    try {
+      if (fetchDataValue.state === "hasValue") {
+        setAppData(fetchDataValue.contents.response);
+      }
+    } catch (error) {
+      toast.warning("something went wrong");
     }
   }, [fetchDataValue]);
 
@@ -62,7 +98,7 @@ export const AppContainer = () => {
 
       return (
         <div
-          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1"
+          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1 cursor-pointer"
           id={data.id}
           key={data.id}
         >
@@ -79,9 +115,10 @@ export const AppContainer = () => {
                 />
               </div>
               <div className="flex">
-                <DeleteButton />
-                <EditButton />
-                <ReminderIcon />
+                <Contacts id={data.id} />
+                <ReminderIcon id={data.id} />
+                <EditButton id={data.id} />
+                <DeleteButton id={data.id} />
               </div>
             </div>
             <div className="flex justify-around items-center py-5">

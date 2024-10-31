@@ -17,18 +17,16 @@ export const Navbar = () => {
             </a>
           </div>
           <div className="text-black order-3 w-full md:w-auto md:order-2">
-            <ul className="flex font-normal justify-between">
+            <ul className="flex font-medium justify-between">
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
                 <a href="/applications">Applications</a>
               </li>
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
                 <a href="">Analytics</a>
               </li>
+
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="">Contacts</a>
-              </li>
-              <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="">About</a>
+                <a href="">AboutUs</a>
               </li>
             </ul>
           </div>

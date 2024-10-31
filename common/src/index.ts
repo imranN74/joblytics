@@ -31,9 +31,7 @@ export const createJobApplication = z.object({
   appStatus: z.string().optional(),
 });
 
-export const deleteJobApplication = z.object({
-  jobId: z.string(),
-});
+export const deleteJobApplication = z.string();
 
 export const updateJobApplication = z.object({
   company: z.string(),

@@ -1,6 +1,33 @@
-export const DeleteButton = () => {
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useSetRecoilState } from "recoil";
+import { isJobAppUpdate } from "../../store/atoms/atom";
+const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
+export const DeleteButton: React.FC<{ id: string }> = ({ id }) => {
+  const setIsUpdatedStateValue = useSetRecoilState(isJobAppUpdate);
+
+  async function handleDeleteClick() {
+    const confirmation = window.confirm("Delete the application ?");
+    if (!confirmation) {
+      return;
+    }
+    try {
+      const response = await axios.post(`${BACKEND_BASE_URL}/job/delete/${id}`);
+      toast.success(response.data.message);
+      setIsUpdatedStateValue(true);
+    } catch (error: any) {
+      toast.warn(error.respnse.data.messsage);
+    }
+  }
+
   return (
-    <div className="cursor-pointer px-1 md:px-3" title="Delete">
+    <div
+      id={id}
+      className="cursor-pointer px-1 md:px-3"
+      title="Delete"
+      onClick={handleDeleteClick}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -38,7 +38,6 @@ router.get("/", userAuthorization, async (req: Request, res: Response) => {
       orderBy: [{ createdAt: "desc" }],
     });
     if (response) {
-      console.log(response);
       res.status(statusCode.accepted).json({
         response,
         message: "applications fetched",
@@ -148,13 +147,14 @@ router.post("/delete/:id", async (req: Request, res: Response) => {
 
   try {
     if (validateData.error) {
+      console.log(validateData.error);
       res.status(statusCode.notFound).json({
-        message: "job application doesn't exists",
+        message: "error while deleting the application, try again",
       });
       return;
     }
     if (validateData.success) {
-      const { jobId } = validateData.data;
+      const jobId = validateData.data;
       await prisma.jobApplication.update({
         data: {
           isActive: false,

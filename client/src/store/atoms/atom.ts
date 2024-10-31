@@ -48,3 +48,9 @@ export const isAuthAtom = atom({
   key: "isLoggedIn",
   default: isToken,
 });
+
+//track jobApplication state
+export const isJobAppUpdate = atom({
+  key: "isJobAppUpdate",
+  default: false,
+});

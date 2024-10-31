@@ -1,6 +1,6 @@
-export const EditButton = () => {
+export const EditButton: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <div className="cursor-pointer px-1 md:px-3" title="Edit">
+    <div id={id} className="cursor-pointer px-1 md:px-3" title="Edit">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

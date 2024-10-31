@@ -1,70 +1,25 @@
-import { appDataAtom } from "../../store/atoms/atom";
+import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import { isJobAppUpdate } from "../../store/atoms/atom";
 import { toast } from "react-toastify";
-import {
-  useRecoilValueLoadable,
-  useRecoilRefresher_UNSTABLE,
-  useSetRecoilState,
-} from "recoil";
-import { fetchDataSelector } from "../../store/atoms/atom";
-import { useState, useEffect } from "react";
 
 export const RefreshIcon = () => {
-  type JobApp = {
-    company: string;
-    role: string;
-    location: string;
-    appliedDate: Date;
-    id: string;
-    appNote: string;
-    user: {
-      name: string;
-    };
-    appStatus: string;
-  };
-
-  const fetchDataValue = useRecoilValueLoadable(fetchDataSelector("/job"));
-  const refreshFetchedData = useRecoilRefresher_UNSTABLE(
-    fetchDataSelector("/job")
-  );
-  const setAppData = useSetRecoilState<JobApp[]>(appDataAtom("bulkJobApp"));
-
   let [iconAnimation, setIconAnimation] = useState(false);
-  const [refreshTriggered, setRefreshTriggered] = useState(false);
 
-  if (fetchDataValue.state === "hasValue") {
-    console.log(fetchDataValue);
-  }
-
-  useEffect(() => {
-    if (!refreshTriggered) {
-      return;
-    } else {
-      if (fetchDataValue.state === "loading") {
-        setIconAnimation(true);
-      } else if (fetchDataValue.state === "hasError") {
-        setIconAnimation(false);
-        setRefreshTriggered(false);
-        toast.warn("error while fetching data");
-      } else if (fetchDataValue.state === "hasValue") {
-        setIconAnimation(false);
-        setRefreshTriggered(false);
-        setAppData(fetchDataValue.contents.response);
-        toast.success("application fetched successfully");
-        setRefreshTriggered(false);
-      }
-    }
-  }, [fetchDataValue, setAppData, refreshTriggered]);
-
+  const isUpdatedStateValue = useSetRecoilState(isJobAppUpdate);
   const handleRefreshClick = () => {
     setIconAnimation(true);
-    setRefreshTriggered(true);
-    refreshFetchedData();
+    isUpdatedStateValue(true);
+    setTimeout(() => {
+      toast.success("application fetched successfully");
+      setIconAnimation(false);
+    }, 1000);
   };
 
   return (
     <div
       onClick={handleRefreshClick}
-      className={`${iconAnimation ? "animate-spin" : ""}`}
+      className={`${iconAnimation ? "animate-spin" : ""} cursor-pointer`}
       title="refresh"
     >
       <svg

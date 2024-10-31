@@ -16,7 +16,9 @@ export const Applications = () => {
           <JobAppMsg
             msg={modalView ? "Add Application" : "Your Applications"}
           />
-          {!modalView ? <RefreshIcon /> : ""}
+          <div className="md:flex md:justify-end">
+            {!modalView ? <RefreshIcon /> : ""}
+          </div>
           <AddButton />
         </div>
         {modalView ? (
