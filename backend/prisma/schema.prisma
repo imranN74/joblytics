@@ -22,6 +22,7 @@ model User {
   isActive  Boolean          @default(true)
   createdAt DateTime         @default(now())
   jobApp    JobApplication[]
+  mail      Mail[]
 }
 
 model JobApplication {
@@ -37,4 +38,16 @@ model JobApplication {
   updatedAt   DateTime?
   user        User      @relation(fields: [userId], references: [id])
   userId      String
+  mail        Mail[]
+}
+
+model Mail {
+  id               String          @id @default(uuid())
+  mailType         String          @default("reminder")
+  reminder         Int             @default(1)
+  isActive         Boolean         @default(true)
+  User             User            @relation(fields: [userId], references: [id])
+  userId           String
+  JobApplication   JobApplication? @relation(fields: [jobApplicationId], references: [id])
+  jobApplicationId String
 }
