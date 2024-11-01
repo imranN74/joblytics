@@ -26,10 +26,13 @@ export const CreateApplicationForm = () => {
 
   const page = useRecoilValue(modalFormPageAtom);
   const [modalState, setModalView] = useRecoilState(modalFormAtom);
+
+  //create application form value state conditionally based on page update or create
   const [formValue, setFormValue] = useState<CreateApplication>({
     company: page === "update" ? updateFormValue.company : "",
     appliedDate: page === "update" ? appDate : "",
-    applicationStatus: page === "update" ? updateFormValue.appStatus : "",
+    applicationStatus:
+      page === "update" ? updateFormValue.appStatus : "applied",
     role: page === "update" ? updateFormValue.role : "",
     location: page === "update" ? updateFormValue.location : "",
     appNote: page === "update" ? updateFormValue.appNote : "",

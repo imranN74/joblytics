@@ -85,7 +85,28 @@ router.post(
             userId: userid,
           },
         });
-        // console.log(response);
+
+        //create mail reminder if application status is applied
+        if (applicationStatus === "applied") {
+          await prisma.mail.create({
+            data: {
+              jobApplicationId: response.id,
+              userId: userid,
+              lastRemindedDate: new Date(appliedDate),
+            },
+          });
+        } else {
+          await prisma.mail.create({
+            data: {
+              jobApplicationId: response.id,
+              userId: userid,
+              isActive: false,
+              lastRemindedDate: new Date(appliedDate),
+            },
+          });
+        }
+
+        //response
         res.status(statusCode.created).json({
           data: response,
           message: "appliction added",
@@ -127,6 +148,28 @@ router.post(
             id: appId,
           },
         });
+
+        //mail status update based on application status... send reminder mail if applied otherwise dont send
+        if (applicationStatus === "applied") {
+          await prisma.mail.updateMany({
+            data: {
+              isActive: true,
+            },
+            where: {
+              jobApplicationId: appId,
+            },
+          });
+        } else {
+          await prisma.mail.updateMany({
+            data: {
+              isActive: false,
+            },
+            where: {
+              jobApplicationId: appId,
+            },
+          });
+        }
+
         res.status(statusCode.created).json({
           message: "Status updated successfully",
         });
@@ -161,6 +204,16 @@ router.post("/delete/:id", async (req: Request, res: Response) => {
         },
         where: {
           id: jobId,
+        },
+      });
+
+      //making reminder mail inactive on application delete
+      await prisma.mail.updateMany({
+        data: {
+          isActive: false,
+        },
+        where: {
+          jobApplicationId: jobId,
         },
       });
       res.status(statusCode.accepted).json({
