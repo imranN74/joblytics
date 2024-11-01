@@ -120,7 +120,11 @@ export const AppContainer = () => {
               </div>
               <div className="flex">
                 <Contacts id={data.id} />
-                <ReminderIcon id={data.id} />
+                {data.appStatus === "interview scheduled" ? (
+                  <ReminderIcon id={data.id} />
+                ) : (
+                  ""
+                )}
                 <EditButton id={data.id} />
                 <DeleteButton id={data.id} />
               </div>

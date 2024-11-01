@@ -1,6 +1,10 @@
 export const ReminderIcon: React.FC<{ id: string }> = ({ id }) => {
   return (
-    <div id={id} className="cursor-pointer px-1 md:px-3" title="set reminder">
+    <div
+      id={id}
+      className="cursor-pointer px-1 md:px-3"
+      title="set reminder for interview day"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="lime"
