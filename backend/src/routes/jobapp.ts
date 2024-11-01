@@ -215,9 +215,43 @@ router.post(
       // console.log(response);
       res.status(statusCode.created).json({
         data: response,
-        message: "appliction added",
+        message: "appliction updated successfully",
       });
       return;
+    }
+  }
+);
+
+router.get(
+  "/application/:id",
+  userAuthorization,
+  async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+      const response = await prisma.jobApplication.findFirst({
+        where: {
+          id: id,
+          isActive: true,
+        },
+        select: {
+          id: true,
+          company: true,
+          role: true,
+          location: true,
+          appliedDate: true,
+          appStatus: true,
+          appNote: true,
+        },
+      });
+
+      res.status(statusCode.accepted).json({
+        response,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "something went wrong",
+      });
     }
   }
 );

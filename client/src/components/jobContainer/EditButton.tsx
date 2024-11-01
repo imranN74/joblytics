@@ -1,11 +1,42 @@
+import { useSetRecoilState } from "recoil";
+import { modalFormAtom } from "../../store/atoms/atom";
+import axios from "axios";
+import { specificAppAtom } from "../../store/atoms/atom";
+import { modalFormPageAtom } from "../../store/atoms/atom";
+const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
 export const EditButton: React.FC<{ id: string }> = ({ id }) => {
+  const setModalVisibility = useSetRecoilState(modalFormAtom);
+  const setModalUpdateData = useSetRecoilState(specificAppAtom);
+  const setFormPageValue = useSetRecoilState(modalFormPageAtom);
+  const token = localStorage.getItem("jwt");
+
+  async function handleeditClick() {
+    const response = await axios.get(
+      `${BACKEND_BASE_URL}/job/application/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setModalUpdateData({ ...response.data.response, isUpdating: true });
+    setFormPageValue("update");
+    setModalVisibility(true);
+  }
+
   return (
-    <div id={id} className="cursor-pointer px-1 md:px-3" title="Edit">
+    <div
+      onClick={handleeditClick}
+      id={id}
+      className="cursor-pointer px-1 md:px-3"
+      title="Edit"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        strokeWidth="1.5"
+        strokeWidth="1"
         stroke="currentColor"
         className="size-4 md:size-6"
       >

@@ -1,16 +1,18 @@
-import { useRecoilState } from "recoil";
-import { modalFormAtom } from "../../store/atoms/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { modalFormAtom, modalFormPageAtom } from "../../store/atoms/atom";
 
 export const AddButton = () => {
   const [modalState, setModalState] = useRecoilState(modalFormAtom);
+  const setFormPageValue = useSetRecoilState(modalFormPageAtom);
   const handleAddClick = () => {
-    setModalState(modalState ? false : true);
+    setModalState(!modalState);
+    setFormPageValue("create");
   };
 
   return (
     <div
       className="cursor-pointer"
-      title="add applications"
+      title={modalState ? "close" : "add application"}
       onClick={handleAddClick}
     >
       {!modalState ? (
@@ -18,7 +20,7 @@ export const AddButton = () => {
           xmlns="http://www.w3.org/2000/svg"
           fill="lime"
           viewBox="0 0 24 24"
-          strokeWidth="1"
+          strokeWidth="0.5"
           stroke="currentColor"
           className="size-12"
         >
@@ -33,7 +35,7 @@ export const AddButton = () => {
           xmlns="http://www.w3.org/2000/svg"
           fill="red"
           viewBox="0 0 24 24"
-          strokeWidth="1"
+          strokeWidth="0.5"
           stroke="currentColor"
           className="size-12"
         >

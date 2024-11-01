@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { InputBox } from "../InputBox";
 import { StatusDropDown } from "./StatusDropDown";
 import { TextArea } from "../TextArea";
@@ -8,20 +8,31 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { CreateApplication } from "@imrannazir/joblytics-zod";
 import { toast } from "react-toastify";
+import { isJobAppUpdate } from "../../store/atoms/atom";
+import { useRecoilValue } from "recoil";
+import { specificAppAtom } from "../../store/atoms/atom";
+import { modalFormPageAtom } from "../../store/atoms/atom";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const CreateApplicationForm = () => {
   const token = localStorage.getItem("jwt");
 
+  const setJobAppUpdate = useSetRecoilState(isJobAppUpdate);
+
+  const updateFormValue = useRecoilValue(specificAppAtom);
+  console.log("-------", updateFormValue);
+  const appDate = String(updateFormValue.appliedDate).split("T")[0];
+
+  const page = useRecoilValue(modalFormPageAtom);
   const [modalState, setModalView] = useRecoilState(modalFormAtom);
   const [formValue, setFormValue] = useState<CreateApplication>({
-    company: "",
-    appliedDate: "",
-    applicationStatus: "applied",
-    role: "",
-    location: "",
-    appNote: "",
+    company: page === "update" ? updateFormValue.company : "",
+    appliedDate: page === "update" ? appDate : "",
+    applicationStatus: page === "update" ? updateFormValue.appStatus : "",
+    role: page === "update" ? updateFormValue.role : "",
+    location: page === "update" ? updateFormValue.location : "",
+    appNote: page === "update" ? updateFormValue.appNote : "",
   });
 
   function handleChange(
@@ -32,15 +43,20 @@ export const CreateApplicationForm = () => {
     const { name, value } = event.target;
     setFormValue({ ...formValue, [name]: value });
   }
-  console.log(formValue);
+  // console.log(formValue);
+
   async function onClickSubmit() {
     const { company, appliedDate, applicationStatus } = formValue;
     if (!company && !appliedDate && !applicationStatus) {
       toast.warn("Required fields are empty");
     } else {
       try {
+        const path =
+          page === "update"
+            ? `/job/update/${updateFormValue.id}`
+            : "/job/create";
         const response = await axios.post(
-          `${BACKEND_BASE_URL}/job/create`,
+          `${BACKEND_BASE_URL}${path}`,
           {
             company: formValue.company,
             appliedDate: formValue.appliedDate,
@@ -58,8 +74,10 @@ export const CreateApplicationForm = () => {
 
         toast.success(response.data.message);
         setModalView(false);
+        setJobAppUpdate(true);
       } catch (error: any) {
         toast.warning(error.response.data.message);
+        setModalView(false);
       }
     }
   }
@@ -82,7 +100,7 @@ export const CreateApplicationForm = () => {
               maxlength={10}
             />
             <InputBox
-              value={formValue.role ? formValue.role : ""}
+              value={formValue?.role ?? ""}
               labelValue="Role"
               typeValue="text"
               handleOnChange={handleChange}
@@ -92,7 +110,7 @@ export const CreateApplicationForm = () => {
           </div>
           <div className="md:flex md:justify-around">
             <InputBox
-              value={formValue.location ? formValue.location : ""}
+              value={formValue?.location ?? ""}
               labelValue="Location"
               typeValue="text"
               handleOnChange={handleChange}
@@ -105,21 +123,30 @@ export const CreateApplicationForm = () => {
               typeValue="date"
               handleOnChange={handleChange}
               idValue="appliedDate"
-              maxlength={10}
             />
           </div>
-          <div className="mt-2">
-            <div>Status</div>
-            <StatusDropDown handleCreateStatus={handleChange} page={"create"} />
-          </div>
+          {page === "create" ? (
+            <div className="mt-2">
+              <div>Status</div>
+              <StatusDropDown
+                handleCreateStatus={handleChange}
+                page={"create"}
+              />
+            </div>
+          ) : (
+            ""
+          )}
           <div className="mt-2">
             <TextArea
-              value={formValue.appNote ? formValue.appNote : ""}
+              value={formValue?.appNote ?? ""}
               textAreaChange={handleChange}
             />
           </div>
           <div className="flex justify-center mt-2">
-            <SubmitButton handleClick={onClickSubmit} value="Add" />
+            <SubmitButton
+              handleClick={onClickSubmit}
+              value={page === "create" ? "Add" : "Update"}
+            />
           </div>
         </div>
       </div>

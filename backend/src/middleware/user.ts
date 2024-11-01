@@ -29,7 +29,7 @@ function userAuthorization(req: Request, res: Response, next: NextFunction) {
     }
   } catch (error) {
     res.status(statusCode.notAuthorized).json({
-      message: "session expired",
+      message: "session expired, try after login",
     });
   }
 }

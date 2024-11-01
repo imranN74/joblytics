@@ -21,6 +21,12 @@ export const modalFormAtom = atom({
   default: false,
 });
 
+//modal form page
+export const modalFormPageAtom = atom({
+  key: "modalPage",
+  default: "",
+});
+
 //for fetch all job application Data
 export const appDataAtom = atomFamily<JobApp[], string>({
   key: "appDataAtom",
@@ -53,4 +59,30 @@ export const isAuthAtom = atom({
 export const isJobAppUpdate = atom({
   key: "isJobAppUpdate",
   default: false,
+});
+
+type JobAppUpdate = {
+  company: string;
+  role: string;
+  location: string;
+  appliedDate: Date;
+  id: string;
+  appNote: string;
+  appStatus: string;
+  isUpdating: boolean;
+};
+
+//store specific application
+export const specificAppAtom = atom<JobAppUpdate>({
+  key: "specificAppUpdate",
+  default: {
+    company: "",
+    role: "",
+    location: "",
+    appliedDate: new Date(),
+    id: "",
+    appNote: "",
+    appStatus: "",
+    isUpdating: false,
+  },
 });

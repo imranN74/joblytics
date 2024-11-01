@@ -98,14 +98,18 @@ export const AppContainer = () => {
 
       return (
         <div
-          className="border-b shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1 cursor-pointer"
+          className="border-b-2 shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1 cursor-pointer"
           id={data.id}
           key={data.id}
         >
           <div>
             <div className="flex justify-between px-5 py-2">
               <div>
-                <NotesButton />
+                <NotesButton
+                  company={data.company}
+                  role={data.role}
+                  appNote={data.appNote}
+                />
               </div>
               <div>
                 <StatusDropDown
