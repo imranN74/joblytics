@@ -53,3 +53,13 @@ model Mail {
   JobApplication   JobApplication? @relation(fields: [jobApplicationId], references: [id])
   jobApplicationId String
 }
+
+model OTP {
+  id             String   @id @default(uuid())
+  email          String
+  otp            String
+  expirationTime DateTime
+  createdAt      DateTime @default(now())
+  attempts       Int      @default(1)
+  isActive       Boolean  @default(true)
+}
