@@ -3,7 +3,7 @@ import { AddButton } from "../components/jobContainer/AddButton";
 import { CreateApplicationForm } from "../components/jobContainer/CreateApplicationForm";
 import { useRecoilValue } from "recoil";
 import { modalFormAtom } from "../store/atoms/atom";
-import { JobAppMsg } from "../components/JobAppMsg";
+import { JobAppMsg } from "../components/jobContainer/JobAppMsg";
 import { RefreshIcon } from "../components/jobContainer/RefreshIcon";
 
 export const Applications = () => {

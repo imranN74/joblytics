@@ -9,13 +9,15 @@ import {
 import jwt from "jsonwebtoken";
 import userAuthorization from "../middleware/user";
 import bcrypt from "bcrypt";
+import { sendOtp } from "../mails/mails";
+import verifyOtp from "../middleware/otp";
 
 const JWT_SECRETE = process.env.JWT_SECRETE_KEY;
 const router = Router();
 const prisma = new PrismaClient();
 
 //user signup route
-router.post("/signup", async (req: Request, res: Response) => {
+router.post("/signup", verifyOtp, async (req: Request, res: Response) => {
   const validateData = signupInput.safeParse(req.body);
 
   try {
@@ -46,6 +48,7 @@ router.post("/signup", async (req: Request, res: Response) => {
       const isEmailExists = await prisma.user.findFirst({
         where: {
           email: email,
+          isActive: true,
         },
       });
       if (isEmailExists) {
@@ -121,6 +124,7 @@ router.post("/signin", async (req: Request, res: Response) => {
           if (JWT_SECRETE) {
             const token = jwt.sign({ userId: response.id }, JWT_SECRETE);
             res.status(statusCode.success).json({
+              response,
               token,
             });
           } else {
@@ -182,5 +186,27 @@ router.post(
     }
   }
 );
+
+//otp verification
+router.post("/otp", async (req: Request, res: Response) => {
+  const userEmail = req.body.email;
+  try {
+    const otp = await sendOtp(userEmail);
+    const hashedOtp = await bcrypt.hash(otp, 10);
+    await prisma.otp.create({
+      data: {
+        email: userEmail,
+        otp: hashedOtp,
+        expirationTime: new Date(Date.now() + 60 * 10 * 1000),
+      },
+    });
+    res.status(statusCode.success).json("OTP sent successfully");
+  } catch (error) {
+    console.log(error);
+    res.status(statusCode.serverError).json({
+      message: "something went wrong,please check your email",
+    });
+  }
+});
 
 export default router;

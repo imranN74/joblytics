@@ -1,7 +1,7 @@
 import { Logo } from "./Logo";
 import { useRecoilValue } from "recoil";
 import { isAuthAtom } from "../store/atoms/atom";
-import { Profile } from "./Profile";
+import { Profile } from "./user/Profile";
 import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {

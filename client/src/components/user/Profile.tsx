@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { isAuthAtom } from "../../store/atoms/atom";
+import { useSetRecoilState } from "recoil";
 
 export const Profile = () => {
   const [profileView, setProfileView] = useState(false);
+
+  //set logged in flag
+  const setIsLOggedIn = useSetRecoilState(isAuthAtom);
+
   const name = localStorage.getItem("name");
   function handleProfileDrop() {
     setProfileView(!profileView);
@@ -13,6 +19,7 @@ export const Profile = () => {
     setProfileView(false);
     localStorage.removeItem("name");
     localStorage.removeItem("jwt");
+    setIsLOggedIn(false);
     navigate("/signin");
   }
 

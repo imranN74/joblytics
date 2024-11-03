@@ -87,9 +87,6 @@ export const AppContainer = () => {
       </div>
     );
   } else if (fetchDataValue.state === "hasValue") {
-    const userName = appData[0].user.name;
-    const name = userName.split(" ")[0];
-    localStorage.setItem("name", name);
     return appData.map((data) => {
       const dateObject = new Date(data.appliedDate);
 

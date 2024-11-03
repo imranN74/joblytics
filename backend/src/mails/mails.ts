@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { generateOTP } from "otp-agent";
 import nodemailer from "nodemailer";
 import { otpMail } from "./mailContent";
+import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 const SENDER_EMAIL = process.env.MAIL_ID;
@@ -22,7 +23,11 @@ type MailType = {
 };
 
 //reminder emails
-async function sendReminderMails({ userEmail, subject, body }: MailType) {
+export async function sendReminderMails({
+  userEmail,
+  subject,
+  body,
+}: MailType) {
   try {
     await transporter.sendMail({
       from: SENDER_EMAIL,
@@ -37,8 +42,7 @@ async function sendReminderMails({ userEmail, subject, body }: MailType) {
 }
 
 //OTP verification emails
-
-async function sendOtp(userEmail: string) {
+export async function sendOtp(userEmail: string) {
   const OTP = generateOTP({ length: 4, numbers: true });
   const subject = otpMail.subject;
   const mailBody = otpMail.mailBody.replace(/{{otp}}/g, OTP);
@@ -49,12 +53,10 @@ async function sendOtp(userEmail: string) {
       subject,
       html: mailBody,
     });
-    console.log("OTP sent successfully");
-    return "OTP sent successfully";
+
+    return OTP;
   } catch (error) {
     console.log(error);
-    return "error while sending OTP,try again";
+    throw new Error();
   }
 }
-
-sendOtp("imrannaziransari48@gmail.com");

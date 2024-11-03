@@ -54,7 +54,7 @@ model Mail {
   jobApplicationId String
 }
 
-model OTP {
+model Otp {
   id             String   @id @default(uuid())
   email          String
   otp            String

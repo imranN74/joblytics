@@ -52,7 +52,7 @@ export const fetchDataSelector = selectorFamily({
 const isToken = localStorage.getItem("jwt");
 export const isAuthAtom = atom({
   key: "isLoggedIn",
-  default: isToken,
+  default: isToken ? true : false,
 });
 
 //track jobApplication state

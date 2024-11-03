@@ -29,11 +29,6 @@ router.get("/", userAuthorization, async (req: Request, res: Response) => {
         appliedDate: true,
         appStatus: true,
         appNote: true,
-        user: {
-          select: {
-            name: true,
-          },
-        },
       },
       orderBy: [{ createdAt: "desc" }],
     });
