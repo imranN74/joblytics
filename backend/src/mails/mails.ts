@@ -46,6 +46,7 @@ cron.schedule("0 8 * * *", async () => {
   const response = await prisma.mail.findMany({
     where: {
       isActive: true,
+      reminder: 1,
     },
     include: {
       User: {
@@ -63,7 +64,7 @@ cron.schedule("0 8 * * *", async () => {
     },
   });
 
-  response.forEach((element) => {
+  response.forEach(async (element) => {
     const currDate = new Date(Date.now());
     const reminderDate = new Date(element.lastRemindedDate);
     const daysPassed = Math.floor(
@@ -81,6 +82,14 @@ cron.schedule("0 8 * * *", async () => {
         body: bodyContent,
       });
     }
+    await prisma.mail.update({
+      data: {
+        reminder: 2,
+      },
+      where: {
+        id: element.id,
+      },
+    });
   });
 });
 
