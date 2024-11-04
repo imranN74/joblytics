@@ -23,7 +23,12 @@ export const OtpCard: React.FC<OtpType> = ({
   profile,
 }) => {
   const navigate = useNavigate();
+
+  //otp value
   const [otpValue, setOtpValue] = useState("");
+
+  //to disable verify button while requesting
+  const [isVerifyButtonActive, setIsVerifyButtonActive] = useState(false);
 
   //set logged in flag
   const setIsLOggedIn = useSetRecoilState(isAuthAtom);
@@ -40,6 +45,7 @@ export const OtpCard: React.FC<OtpType> = ({
       toast.warning("Kindly enter the OTP");
     } else {
       try {
+        setIsVerifyButtonActive(true);
         const response = await axios.post(`${BACKEND_BASE_URL}/user/signup`, {
           email: email,
           name: name,
@@ -54,8 +60,10 @@ export const OtpCard: React.FC<OtpType> = ({
         localStorage.setItem("name", userName);
         setIsLOggedIn(true);
         navigate("/applications");
+        setIsVerifyButtonActive(false);
         toast.success(response.data.message);
       } catch (error: any) {
+        setIsVerifyButtonActive(false);
         console.log(error);
         toast.error(error.response.data.message);
         navigate("/signup");
@@ -74,6 +82,9 @@ export const OtpCard: React.FC<OtpType> = ({
           <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div>
               <button
+                onClick={() => {
+                  window.location.reload();
+                }}
                 type="button"
                 className="absolute -top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                 data-modal-hide="popup-modal"
@@ -119,9 +130,11 @@ export const OtpCard: React.FC<OtpType> = ({
                 onClick={onVerify}
                 data-modal-hide="popup-modal"
                 type="button"
-                className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                className={`text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center ${
+                  isVerifyButtonActive ? "cursor-not-allowed" : ""
+                }`}
               >
-                Verify
+                {!isVerifyButtonActive ? "Verify" : "Verifying..."}
               </button>
               <button
                 onClick={resendClick}

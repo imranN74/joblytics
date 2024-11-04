@@ -8,12 +8,16 @@ import { InputBox } from "../components/InputBox";
 import { SubmitButton } from "../components/SubmitButton";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { ProcessLoader } from "../components/loader/ProcessLoader";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const SignUp = () => {
   const [optCardVisibility, setOtpCardVisibility] = useState(false);
   const [cnfPwd, setCnfPwd] = useState<string>("");
+
+  //to disable signup button while requesting
+  const [isSigniUpButtonActive, setIsSigniUpButtonActive] = useState(false);
 
   const [formData, setFormData] = useState<SignupInput>({
     name: "",
@@ -37,6 +41,7 @@ export const SignUp = () => {
       toast.warn("Pleae fill all the fileds");
     } else {
       try {
+        setIsSigniUpButtonActive(true);
         const response = await axios.post(`${BACKEND_BASE_URL}/user/otp`, {
           email: email,
         });
@@ -45,7 +50,9 @@ export const SignUp = () => {
         setOtpCardVisibility(true);
 
         toast.success(response.data);
+        setIsSigniUpButtonActive(false);
       } catch (error: any) {
+        setIsSigniUpButtonActive(false);
         toast.warning(error.response.data.message);
       }
     }
@@ -106,13 +113,17 @@ export const SignUp = () => {
                 ""
               )}
               <div className="flex justify-center mt-2">
-                <SubmitButton
-                  handleClick={submitClick}
-                  value="SignUp"
-                  buttonType={
-                    formData.password != cnfPwd ? "cursor-not-allowed" : ""
-                  }
-                />
+                {isSigniUpButtonActive ? (
+                  <ProcessLoader />
+                ) : (
+                  <SubmitButton
+                    handleClick={submitClick}
+                    value="SignUp"
+                    buttonType={
+                      formData.password != cnfPwd ? "cursor-not-allowed" : ""
+                    }
+                  />
+                )}
               </div>
             </div>
           </div>

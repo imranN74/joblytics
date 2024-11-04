@@ -10,6 +10,7 @@ import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
 import { isAuthAtom } from "../store/atoms/atom";
 import { useSetRecoilState } from "recoil";
+import { ProcessLoader } from "../components/loader/ProcessLoader";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -24,6 +25,9 @@ export const SignIn = () => {
     password: "",
   });
 
+  //to disable signin button while requesting
+  const [isSigniInButtonActive, setIsSignInButtonActive] = useState(false);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -36,6 +40,7 @@ export const SignIn = () => {
       toast.warn("Pleae fill all the fileds");
     } else {
       try {
+        setIsSignInButtonActive(true);
         const response = await axios.post(`${BACKEND_BASE_URL}/user/signin`, {
           email: email,
           password: password,
@@ -46,8 +51,10 @@ export const SignIn = () => {
         localStorage.setItem("name", name);
         toast.success("LoggedIn successfully");
         setIsLOggedIn(true);
+        setIsSignInButtonActive(false);
         navigate("/applications");
       } catch (error: any) {
+        setIsSignInButtonActive(false);
         toast.warning(error.response.data.message);
       }
     }
@@ -81,7 +88,11 @@ export const SignIn = () => {
             idValue="password"
           />
           <div className="flex justify-center mt-2">
-            <SubmitButton handleClick={submitClick} value="Login" />
+            {isSigniInButtonActive ? (
+              <ProcessLoader />
+            ) : (
+              <SubmitButton handleClick={submitClick} value="Login" />
+            )}
           </div>
         </div>
       </div>
