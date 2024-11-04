@@ -11,6 +11,7 @@ async function verifyOtp(req: Request, res: Response, next: NextFunction) {
     const response = await prisma.otp.findFirst({
       where: {
         email: email,
+        isActive: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -20,11 +21,15 @@ async function verifyOtp(req: Request, res: Response, next: NextFunction) {
       const isOtpMatch = await bcrypt.compare(otp, response.otp);
       if (!isOtpMatch) {
         res.status(statusCode.forbidden).json({
-          message: "invalid otp",
+          message: "invalid OTP",
         });
       } else {
         next();
       }
+    } else {
+      res.status(statusCode.badRequest).json({
+        message: "invalid OTP",
+      });
     }
   } catch (error) {
     console.log(error);

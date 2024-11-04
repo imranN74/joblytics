@@ -200,12 +200,39 @@ router.post("/otp", async (req: Request, res: Response) => {
         expirationTime: new Date(Date.now() + 60 * 10 * 1000),
       },
     });
+
     res.status(statusCode.success).json("OTP sent successfully");
   } catch (error) {
     console.log(error);
     res.status(statusCode.serverError).json({
       message: "something went wrong,please check your email",
     });
+  } finally {
+    const otpExpireTime = await prisma.otp.findMany({
+      where: {
+        isActive: true,
+      },
+      select: {
+        expirationTime: true,
+      },
+    });
+
+    setTimeout(() => {
+      otpExpireTime.forEach(async (element) => {
+        const currentTime = new Date(Date.now());
+        const expTime = new Date(element.expirationTime);
+        if (expTime < currentTime) {
+          await prisma.otp.updateMany({
+            where: {
+              expirationTime: expTime,
+            },
+            data: {
+              isActive: false,
+            },
+          });
+        }
+      });
+    }, 60 * 10 * 1000);
   }
 });
 

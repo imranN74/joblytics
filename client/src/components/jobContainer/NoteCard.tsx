@@ -21,8 +21,8 @@ export const NoteCard: React.FC<NoteCardType> = ({
         <div>{company}</div>
         <div>{role}</div>
       </div>
-      <div className={`${!note ? "text-red-500" : ""}`}>
-        {note ? note : "add a short note"}
+      <div className={`${!note ? "text-red-500" : ""} normal-case`}>
+        {note ? note : "add a short note about this application :- Edit"}
       </div>
     </div>
   );
