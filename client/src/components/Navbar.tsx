@@ -9,7 +9,7 @@ export const Navbar = () => {
   const isLoggedIn = useRecoilValue(isAuthAtom);
   return (
     <div className="fixed top-0 rounded-b-xl z-[1000] w-full">
-      <nav className="bg-gray-100 shadow shadow-gray-300 w-100 px-2 md:px-auto">
+      <nav className="shadow shadow-gray-300 w-100 px-2 md:px-auto bg-gradient-to-r from-cyan-200 to-green-500">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="text-indigo-500 md:order-1">
             <a href="/applications" title="jobLutics">
@@ -37,13 +37,13 @@ export const Navbar = () => {
               <button
                 title="login"
                 onClick={() => {
-                  navigate("/signin");
+                  navigate("/signup");
                 }}
                 className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
+                  className="h-5 w-5 animate-pulse"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -53,7 +53,7 @@ export const Navbar = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Login</span>
+                <span>SignUp</span>
               </button>
             )}
           </div>
