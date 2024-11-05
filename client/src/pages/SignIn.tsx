@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { isAuthAtom } from "../store/atoms/atom";
 import { useSetRecoilState } from "recoil";
 import { ProcessLoader } from "../components/loader/ProcessLoader";
+import { SignContent } from "./SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -61,41 +62,44 @@ export const SignIn = () => {
   }
 
   return (
-    <div className="mt-24 flex justify-center items-center">
-      <div className="w-full px-3 md:w-1/3 py-4 rounded-md">
-        <div className="flex justify-center pb-2">
-          <Logo />
-        </div>
-        <div className="flex justify-center">
-          <div className="font-semibold text-xl">Don't have an account?</div>
-          <span className="pl-2 underline">
-            <Link to={"/signup"}>SignUp</Link>
-          </span>
-        </div>
-        <div className="mt-2">
-          <InputBox
-            value={formData.email}
-            labelValue="Email"
-            typeValue="email"
-            handleOnChange={handleChange}
-            idValue="email"
-          />
-          <InputBox
-            value={formData.password}
-            labelValue="Password"
-            typeValue="password"
-            handleOnChange={handleChange}
-            idValue="password"
-          />
-          <div className="flex justify-center mt-2">
-            {isSigniInButtonActive ? (
-              <ProcessLoader />
-            ) : (
-              <SubmitButton handleClick={submitClick} value="Login" />
-            )}
+    <div className="md:flex md:h-screen">
+      <div className="flex justify-center items-center h-screen md:h-auto md:mt-20 md:w-1/2">
+        <div className="w-full px-3 md:w-4/5 py-4 rounded-md">
+          <div className="flex justify-center pb-2">
+            <Logo />
+          </div>
+          <div className="flex justify-center">
+            <div className="font-semibold text-xl">Don't have an account?</div>
+            <span className="pl-2 underline">
+              <Link to={"/signup"}>SignUp</Link>
+            </span>
+          </div>
+          <div className="mt-2">
+            <InputBox
+              value={formData.email}
+              labelValue="Email"
+              typeValue="email"
+              handleOnChange={handleChange}
+              idValue="email"
+            />
+            <InputBox
+              value={formData.password}
+              labelValue="Password"
+              typeValue="password"
+              handleOnChange={handleChange}
+              idValue="password"
+            />
+            <div className="flex justify-center mt-2">
+              {isSigniInButtonActive ? (
+                <ProcessLoader />
+              ) : (
+                <SubmitButton handleClick={submitClick} value="Login" />
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <SignContent />
     </div>
   );
 };

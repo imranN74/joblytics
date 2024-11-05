@@ -9,6 +9,7 @@ import { SubmitButton } from "../components/SubmitButton";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ProcessLoader } from "../components/loader/ProcessLoader";
+import { SignContent } from "./SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -59,83 +60,86 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="flex justify-center items-center ">
-      <div className="w-full px-3 md:w-1/3 py-4 rounded-md">
-        {!optCardVisibility ? (
-          <div>
-            <div className="flex justify-center pb-2">
-              <Logo />
-            </div>
-            <div className="flex justify-center">
-              <div className="font-semibold text-xl">
-                Already have an account?
+    <div className="md:flex md:h-screen">
+      <SignContent />
+      <div className="flex justify-center items-center h-screen md:h-auto md:mt-20 md:w-1/2">
+        <div className="w-full px-3 md:w-4/5 py-4 rounded-md">
+          {!optCardVisibility ? (
+            <div>
+              <div className="flex justify-center pb-2">
+                <Logo />
               </div>
-              <span className="pl-2 underline">
-                <Link to={"/signin"}>Login</Link>
-              </span>
-            </div>
-            <div className="">
-              <InputBox
-                value={formData.name}
-                labelValue="Name"
-                typeValue="text"
-                handleOnChange={handleChange}
-                idValue="name"
-              />
+              <div className="flex justify-center">
+                <div className="font-semibold text-xl">
+                  Already have an account?
+                </div>
+                <span className="pl-2 underline">
+                  <Link to={"/signin"}>Login</Link>
+                </span>
+              </div>
+              <div className="">
+                <InputBox
+                  value={formData.name}
+                  labelValue="Name"
+                  typeValue="text"
+                  handleOnChange={handleChange}
+                  idValue="name"
+                />
 
-              <InputBox
-                value={formData.email}
-                labelValue="Email"
-                typeValue="email"
-                handleOnChange={handleChange}
-                idValue="email"
-              />
+                <InputBox
+                  value={formData.email}
+                  labelValue="Email"
+                  typeValue="email"
+                  handleOnChange={handleChange}
+                  idValue="email"
+                />
 
-              <InputBox
-                value={formData.password}
-                labelValue="Password"
-                typeValue="password"
-                handleOnChange={handleChange}
-                idValue="password"
-              />
+                <InputBox
+                  value={formData.password}
+                  labelValue="Password"
+                  typeValue="password"
+                  handleOnChange={handleChange}
+                  idValue="password"
+                />
 
-              <InputBox
-                value={cnfPwd}
-                labelValue="Confirm Password"
-                typeValue="password"
-                handleOnChange={handleChange}
-                idValue="cnfpassword"
-              />
+                <InputBox
+                  value={cnfPwd}
+                  labelValue="Confirm Password"
+                  typeValue="password"
+                  handleOnChange={handleChange}
+                  idValue="cnfpassword"
+                />
 
-              {formData.password != cnfPwd ? (
-                <div className="text-red-600">Password doesn't match</div>
-              ) : (
-                ""
-              )}
-              <div className="flex justify-center mt-2">
-                {isSigniUpButtonActive ? (
-                  <ProcessLoader />
+                {formData.password != cnfPwd ? (
+                  <div className="text-red-600">
+                    Confirm Password doesn't match
+                  </div>
                 ) : (
-                  <SubmitButton
-                    handleClick={submitClick}
-                    value="SignUp"
-                    buttonType={
-                      formData.password != cnfPwd ? "cursor-not-allowed" : ""
-                    }
-                  />
+                  ""
                 )}
+                <div className="flex justify-center mt-2">
+                  {isSigniUpButtonActive ? (
+                    <ProcessLoader />
+                  ) : (
+                    <SubmitButton
+                      handleClick={submitClick}
+                      value="SignUp"
+                      buttonType={formData.password != cnfPwd ? true : false}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <OtpCard
-            resendClick={submitClick}
-            name={name}
-            email={email}
-            password={password}
-            profile={profile}
-          />
-        )}
+          ) : (
+            <OtpCard
+              resendClick={submitClick}
+              name={name}
+              email={email}
+              password={password}
+              profile={profile}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
