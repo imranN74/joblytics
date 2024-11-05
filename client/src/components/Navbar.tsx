@@ -30,7 +30,7 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
-          <div className="order-2 md:order-3">
+          <div className="order-2 md:order-3 mr-3">
             {isLoggedIn ? (
               <Profile />
             ) : (
