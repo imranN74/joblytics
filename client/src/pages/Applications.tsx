@@ -22,11 +22,11 @@ export const Applications = () => {
           <AddButton />
         </div>
         {modalView ? (
-          <div className="">
+          <div className="mt-28">
             <CreateApplicationForm />
           </div>
         ) : (
-          <div>
+          <div className="mt-28">
             <AppContainer />
           </div>
         )}

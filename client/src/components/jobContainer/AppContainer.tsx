@@ -95,7 +95,7 @@ export const AppContainer = () => {
 
       return (
         <div
-          className="border-b-2 shadow-sm rounded-sm md:px-5 mt-2 capitalize hover:shadow-md hover:mx-1 cursor-pointer"
+          className="border-b-2 shadow-sm rounded-sm md:px-5 capitalize hover:shadow-md hover:mx-1 cursor-pointer"
           id={data.id}
           key={data.id}
         >
