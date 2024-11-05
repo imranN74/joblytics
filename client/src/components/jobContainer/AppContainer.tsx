@@ -32,14 +32,17 @@ export const AppContainer = () => {
     appStatus: string;
   };
 
+  //fetch the data using recoil selector
   const fetchDataValue = useRecoilValueLoadable(fetchDataSelector("/job"));
   const [appData, setAppData] = useRecoilState<JobApp[]>(
     appDataAtom("bulkJobApp")
   );
 
+  //check if any cahnges occured and refetch the data
   const [isUpdatedStateValue, setIsUpdatedStateValue] =
     useRecoilState(isJobAppUpdate);
 
+  //refresh the fetching recoil selector
   const refreshFetchedData = useRecoilRefresher_UNSTABLE(
     fetchDataSelector("/job")
   );

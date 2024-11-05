@@ -1,12 +1,29 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { modalFormAtom, modalFormPageAtom } from "../../store/atoms/atom";
+import { isAuthAtom } from "../../store/atoms/atom";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AddButton = () => {
+  const navigate = useNavigate();
+
+  //check if the user is logged in
+  const isLoggedIn = useRecoilValue(isAuthAtom);
+
+  //create modal open
   const [modalState, setModalState] = useRecoilState(modalFormAtom);
+
+  //
   const setFormPageValue = useSetRecoilState(modalFormPageAtom);
   const handleAddClick = () => {
-    setModalState(!modalState);
-    setFormPageValue("create");
+    if (!isLoggedIn) {
+      navigate("/signin");
+      toast.warn("login to continue");
+    } else {
+      setModalState(!modalState);
+      setFormPageValue("create");
+    }
   };
 
   return (
