@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .logo-font {
-  font-family: "Lucida Handwriting";
+  font-family: "Lucida Handwriting", cursive;
 }
