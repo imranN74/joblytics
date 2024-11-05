@@ -10,7 +10,6 @@ import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
 import { isAuthAtom } from "../store/atoms/atom";
 import { useSetRecoilState } from "recoil";
-import { ProcessLoader } from "../components/loader/ProcessLoader";
 import { SignContent } from "./SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -90,11 +89,11 @@ export const SignIn = () => {
               idValue="password"
             />
             <div className="flex justify-center mt-2">
-              {isSigniInButtonActive ? (
-                <ProcessLoader />
-              ) : (
-                <SubmitButton handleClick={submitClick} value="Login" />
-              )}
+              <SubmitButton
+                handleClick={submitClick}
+                value={isSigniInButtonActive ? "Loggin In..." : "Login"}
+                buttonType={isSigniInButtonActive}
+              />
             </div>
           </div>
         </div>

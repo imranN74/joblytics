@@ -8,7 +8,6 @@ import { InputBox } from "../components/InputBox";
 import { SubmitButton } from "../components/SubmitButton";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { ProcessLoader } from "../components/loader/ProcessLoader";
 import { SignContent } from "./SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -45,6 +44,9 @@ export const SignUp = () => {
         setIsSigniUpButtonActive(true);
         const response = await axios.post(`${BACKEND_BASE_URL}/user/otp`, {
           email: email,
+          name: name,
+          password: password,
+          profile: profile,
         });
 
         //set visiblity of OTP modal
@@ -118,15 +120,17 @@ export const SignUp = () => {
                   ""
                 )}
                 <div className="flex justify-center mt-2">
-                  {isSigniUpButtonActive ? (
-                    <ProcessLoader />
-                  ) : (
-                    <SubmitButton
-                      handleClick={submitClick}
-                      value="SignUp"
-                      buttonType={formData.password != cnfPwd ? true : false}
-                    />
-                  )}
+                  <SubmitButton
+                    handleClick={submitClick}
+                    value={isSigniUpButtonActive ? "Signing Up..." : "SignUp"}
+                    buttonType={
+                      !isSigniUpButtonActive
+                        ? formData.password != cnfPwd
+                          ? true
+                          : false
+                        : true
+                    }
+                  />
                 </div>
               </div>
             </div>

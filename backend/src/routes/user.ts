@@ -1,62 +1,29 @@
 import { Router, Request, Response } from "express";
 import { statusCode } from "..";
 import { PrismaClient } from "@prisma/client";
-import {
-  signupInput,
-  signinInput,
-  updateUserInput,
-} from "@imrannazir/joblytics-zod";
+import { signinInput, updateUserInput } from "@imrannazir/joblytics-zod";
 import jwt from "jsonwebtoken";
 import userAuthorization from "../middleware/user";
 import bcrypt from "bcrypt";
 import { sendOtp } from "../mails/mails";
 import verifyOtp from "../middleware/otp";
+import { signUpValidate } from "../middleware/user";
 
 const JWT_SECRETE = process.env.JWT_SECRETE_KEY;
 const router = Router();
 const prisma = new PrismaClient();
 
 //user signup route
-router.post("/signup", verifyOtp, async (req: Request, res: Response) => {
-  const validateData = signupInput.safeParse(req.body);
+router.post(
+  "/signup",
+  signUpValidate,
+  verifyOtp,
+  async (req: Request, res: Response) => {
+    try {
+      //validation success
 
-  try {
-    //zodValidation
-    if (validateData.error) {
-      const path = validateData.error.issues[0].path[0];
-      if (path === "email") {
-        res.status(statusCode.badRequest).json({
-          message: "invalid email",
-        });
-        return;
-      } else if (path === "password") {
-        res.status(statusCode.badRequest).json({
-          message: "password must be of atleast 6 characters",
-        });
-        return;
-      } else {
-        res.status(statusCode.badRequest).json({
-          message: "invalid inputs",
-        });
-        return;
-      }
-    }
+      const { name, email, password, profile } = req.body;
 
-    //validation success
-    if (validateData.success) {
-      const { name, email, password, profile } = validateData.data;
-      const isEmailExists = await prisma.user.findFirst({
-        where: {
-          email: email,
-          isActive: true,
-        },
-      });
-      if (isEmailExists) {
-        res.status(statusCode.forbidden).json({
-          message: "email already exists",
-        });
-        return;
-      }
       const hashedPassword = await bcrypt.hash(password, 10);
       const response = await prisma.user.create({
         data: {
@@ -78,14 +45,14 @@ router.post("/signup", verifyOtp, async (req: Request, res: Response) => {
         res.status(statusCode.notFound).json("jwt_secrete not found");
         return;
       }
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "something went wrong while signing up",
+      });
     }
-  } catch (error) {
-    console.log(error);
-    res.status(statusCode.serverError).json({
-      message: "something went wrong while signing up",
-    });
   }
-});
+);
 
 //user signin route
 router.post("/signin", async (req: Request, res: Response) => {
@@ -188,9 +155,24 @@ router.post(
 );
 
 //otp verification
-router.post("/otp", async (req: Request, res: Response) => {
+router.post("/otp", signUpValidate, async (req: Request, res: Response) => {
   const userEmail = req.body.email;
   try {
+    //check mail already exists
+    const isEmailExists = await prisma.user.findFirst({
+      where: {
+        email: userEmail,
+        isActive: true,
+      },
+    });
+    if (isEmailExists) {
+      res.status(statusCode.forbidden).json({
+        message: "email already exists",
+      });
+      return;
+    }
+
+    //send otp
     const otp = await sendOtp(userEmail);
     const hashedOtp = await bcrypt.hash(otp, 10);
     await prisma.otp.create({
@@ -205,7 +187,7 @@ router.post("/otp", async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     res.status(statusCode.serverError).json({
-      message: "something went wrong,please check your email",
+      message: "something went wrong,please try again",
     });
   } finally {
     const otpExpireTime = await prisma.otp.findMany({
