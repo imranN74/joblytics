@@ -8,7 +8,7 @@ import { InputBox } from "../components/InputBox";
 import { SubmitButton } from "../components/SubmitButton";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { SignContent } from "./SignContent";
+import { SignContent } from "../components/SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 

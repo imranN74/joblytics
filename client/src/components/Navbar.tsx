@@ -8,8 +8,8 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(isAuthAtom);
   return (
-    <div className="fixed top-0 rounded-b-xl z-[1000] w-full">
-      <nav className="shadow shadow-gray-300 w-100 px-2 md:px-auto bg-gradient-to-r from-cyan-200 to-green-500">
+    <div className="fixed top-0 rounded-b-xl z-[1000] w-full times-font">
+      <nav className="shadow shadow-gray-300 w-100 px-2 md:px-auto bg-gradient-to-r from-green-50 to-green-100">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="text-indigo-500 md:order-1">
             <a href="/applications" title="jobLutics">
@@ -35,7 +35,7 @@ export const Navbar = () => {
               <Profile />
             ) : (
               <button
-                title="login"
+                title="signup to continue"
                 onClick={() => {
                   navigate("/signup");
                 }}
@@ -43,7 +43,7 @@ export const Navbar = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 animate-pulse"
+                  className="h-5 w-5 animate-bounce-left"
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >

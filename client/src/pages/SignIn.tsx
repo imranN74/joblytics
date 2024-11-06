@@ -10,7 +10,7 @@ import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
 import { isAuthAtom } from "../store/atoms/atom";
 import { useSetRecoilState } from "recoil";
-import { SignContent } from "./SignContent";
+import { SignContent } from "../components/SignContent";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 

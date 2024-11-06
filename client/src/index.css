@@ -5,3 +5,23 @@
 .logo-font {
   font-family: "Lucida Handwriting", cursive;
 }
+
+.times-font {
+  font-family: "Times New Roman", serif;
+}
+
+/* for signup icon animation */
+
+@keyframes bounce-left {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+
+.animate-bounce-left {
+  animation: bounce-left 2s ease-in-out infinite;
+}

@@ -1,4 +1,4 @@
-import { Land } from "../components/Land";
+import { Land } from "../components/landing/Land";
 
 export const LandingPage = () => {
   return (

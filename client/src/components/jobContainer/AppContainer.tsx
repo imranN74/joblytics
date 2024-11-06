@@ -77,7 +77,7 @@ export const AppContainer = () => {
 
   if ((appData?.length ?? 0) === 0 && fetchDataValue.state != "loading") {
     return (
-      <div>
+      <div className="mt-64">
         <InitAdd />
       </div>
     );
