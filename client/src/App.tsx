@@ -7,6 +7,8 @@ import { Navbar } from "./components/Navbar";
 import { isAuthAtom } from "./store/atoms/atom";
 import { useRecoilValue } from "recoil";
 import { Navigate } from "react-router-dom";
+import { Analytics } from "./pages/Analytics";
+import { Contacts } from "./pages/Contacts";
 
 function App() {
   const isLoggedIn = useRecoilValue(isAuthAtom);
@@ -27,6 +29,19 @@ function App() {
           path="/signup"
           element={
             !isLoggedIn ? <SignUp /> : <Navigate to="/applications" replace />
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            isLoggedIn ? <Analytics /> : <Navigate to="/signup" replace />
+          }
+        />
+
+        <Route
+          path="applications/contacts/:id"
+          element={
+            isLoggedIn ? <Contacts /> : <Navigate to="/signup" replace />
           }
         />
       </Routes>

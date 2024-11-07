@@ -3,77 +3,15 @@ import { EditButton } from "./EditButton";
 import { StatusDropDown } from "./StatusDropDown";
 import { AppValues } from "./AppValues";
 import { NotesButton } from "./NotesButton";
-import { fetchDataSelector } from "../../store/atoms/atom";
-import { appDataAtom } from "../../store/atoms/atom";
-import {
-  useRecoilValueLoadable,
-  useRecoilState,
-  useRecoilRefresher_UNSTABLE,
-} from "recoil";
-import { useEffect } from "react";
 import { Loader } from "../loader/Loader";
 import { InitAdd } from "./InitAdd";
 import { ReminderIcon } from "./ReminderIcon";
-import { Contacts } from "../jobContainer/Contacts";
-import { isJobAppUpdate } from "../../store/atoms/atom";
-import { toast } from "react-toastify";
+import { ContactsIcon } from "./ContactsIcon";
+import { useFetchData } from "../../hooks/fetchData";
+import { ErrorPage } from "./ErrorPage";
 
 export const AppContainer = () => {
-  type JobApp = {
-    company: string;
-    role: string;
-    location: string;
-    appliedDate: Date;
-    id: string;
-    appNote: string;
-    user: {
-      name: string;
-    };
-    appStatus: string;
-  };
-
-  //fetch the data using recoil selector
-  const fetchDataValue = useRecoilValueLoadable(fetchDataSelector("/job"));
-  const [appData, setAppData] = useRecoilState<JobApp[]>(
-    appDataAtom("bulkJobApp")
-  );
-
-  //check if any cahnges occured and refetch the data
-  const [isUpdatedStateValue, setIsUpdatedStateValue] =
-    useRecoilState(isJobAppUpdate);
-
-  //refresh the fetching recoil selector
-  const refreshFetchedData = useRecoilRefresher_UNSTABLE(
-    fetchDataSelector("/job")
-  );
-
-  //re-render the component if some changes occured like delete, update etc
-  useEffect(() => {
-    try {
-      if (!isUpdatedStateValue) {
-        return;
-      } else {
-        refreshFetchedData();
-        if (fetchDataValue.state === "hasValue") {
-          setAppData(fetchDataValue.contents.response);
-        }
-        setIsUpdatedStateValue(false);
-      }
-    } catch (error) {
-      toast.warning("something went wrong");
-    }
-  }, [isUpdatedStateValue]);
-
-  //initial mount on page load
-  useEffect(() => {
-    try {
-      if (fetchDataValue.state === "hasValue") {
-        setAppData(fetchDataValue.contents.response);
-      }
-    } catch (error) {
-      toast.warning("something went wrong");
-    }
-  }, [fetchDataValue]);
+  const { appData, fetchDataValue } = useFetchData();
 
   if ((appData?.length ?? 0) === 0 && fetchDataValue.state != "loading") {
     return (
@@ -85,10 +23,12 @@ export const AppContainer = () => {
 
   if (fetchDataValue.state === "loading") {
     return (
-      <div className="flex justify-center h-screen items-center">
+      <div className="flex justify-center mt-56 items-center">
         <Loader />
       </div>
     );
+  } else if (fetchDataValue.state === "hasError") {
+    return <ErrorPage />;
   } else if (fetchDataValue.state === "hasValue") {
     return appData.map((data) => {
       const dateObject = new Date(data.appliedDate);
@@ -119,7 +59,7 @@ export const AppContainer = () => {
                 />
               </div>
               <div className="flex">
-                <Contacts id={data.id} />
+                <ContactsIcon id={data.id} />
                 {data.appStatus === "interview scheduled" ? (
                   <ReminderIcon id={data.id} />
                 ) : (

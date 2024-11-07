@@ -18,10 +18,11 @@ const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 export const CreateApplicationForm = () => {
   const token = localStorage.getItem("jwt");
 
+  // to check if the state changed
   const setJobAppUpdate = useSetRecoilState(isJobAppUpdate);
 
+  //
   const updateFormValue = useRecoilValue(specificAppAtom);
-  console.log("-------", updateFormValue);
   const appDate = String(updateFormValue.appliedDate).split("T")[0];
 
   const page = useRecoilValue(modalFormPageAtom);

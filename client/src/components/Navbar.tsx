@@ -12,7 +12,7 @@ export const Navbar = () => {
       <nav className="shadow shadow-gray-300 w-100 px-2 md:px-auto bg-gradient-to-r from-green-50 to-green-100">
         <div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
           <div className="text-indigo-500 md:order-1">
-            <a href="/applications" title="jobLutics">
+            <a href="/" title="jobLutics">
               <Logo />
             </a>
           </div>
@@ -22,7 +22,7 @@ export const Navbar = () => {
                 <a href="/applications">Applications</a>
               </li>
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="">Analytics</a>
+                <a href="/analytics">Analytics</a>
               </li>
 
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
