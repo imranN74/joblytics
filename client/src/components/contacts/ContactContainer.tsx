@@ -9,7 +9,7 @@ export const ContactContainer = () => {
       <div className="flex gap-4">
         <div>Name</div>
         <div>Contact</div>
-        <DeleteButton id={id ? id : ""} />
+        <DeleteButton endpoint={""} id={id ? id : ""} />
         <EditButton id={id ? id : ""} />
       </div>
     </div>

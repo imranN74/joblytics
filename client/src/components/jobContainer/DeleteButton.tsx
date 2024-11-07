@@ -1,7 +1,10 @@
 import { useDeleteData } from "../../hooks/deleteData";
 
-export const DeleteButton: React.FC<{ id: string }> = ({ id }) => {
-  const deletData = useDeleteData("/job/delete/");
+export const DeleteButton: React.FC<{ endpoint: string; id: string }> = ({
+  endpoint,
+  id,
+}) => {
+  const deletData = useDeleteData(endpoint);
 
   async function handleDeleteClick() {
     deletData(id);

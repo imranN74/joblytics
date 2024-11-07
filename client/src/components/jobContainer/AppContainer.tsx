@@ -66,7 +66,7 @@ export const AppContainer = () => {
                   ""
                 )}
                 <EditButton id={data.id} />
-                <DeleteButton id={data.id} />
+                <DeleteButton endpoint="/job/delete/" id={data.id} />
               </div>
             </div>
             <div className="flex justify-around items-center py-5">
