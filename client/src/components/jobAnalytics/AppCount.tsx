@@ -1,5 +1,6 @@
 import { Loader } from "../loader/Loader";
 import { useFetchData } from "../../hooks/fetchData";
+import { ErrorPage } from "../jobContainer/ErrorPage";
 
 export const AppCount = () => {
   const { appData, fetchDataValue } = useFetchData();
@@ -11,6 +12,8 @@ export const AppCount = () => {
           <Loader />
         </div>
       );
+    } else if (fetchDataValue.state === "hasError") {
+      return <ErrorPage />;
     } else if (fetchDataValue.state === "hasValue" && appData.length > 0) {
       return (
         <div className="h-screen flex flex-col justify-center items-center text-xl">

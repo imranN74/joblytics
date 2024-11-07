@@ -1,24 +1,10 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useSetRecoilState } from "recoil";
-import { isJobAppUpdate } from "../../store/atoms/atom";
-const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+import { useDeleteData } from "../../hooks/deleteData";
 
 export const DeleteButton: React.FC<{ id: string }> = ({ id }) => {
-  const setIsUpdatedStateValue = useSetRecoilState(isJobAppUpdate);
+  const deletData = useDeleteData("/job/delete/");
 
   async function handleDeleteClick() {
-    const confirmation = window.confirm("Delete the application ?");
-    if (!confirmation) {
-      return;
-    }
-    try {
-      const response = await axios.post(`${BACKEND_BASE_URL}/job/delete/${id}`);
-      toast.success(response.data.message);
-      setIsUpdatedStateValue(true);
-    } catch (error: any) {
-      toast.warn(error.respnse.data.messsage);
-    }
+    deletData(id);
   }
 
   return (
