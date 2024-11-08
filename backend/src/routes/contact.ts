@@ -41,4 +41,30 @@ router.post(
   }
 );
 
+router.post(
+  "/delete/:id",
+  userAuthorization,
+  async (req: Request, res: Response) => {
+    const contactId = req.params.id;
+    try {
+      await prisma.contacts.update({
+        where: {
+          id: contactId,
+        },
+        data: {
+          isActive: false,
+        },
+      });
+      res.status(statusCode.accepted).json({
+        message: "contact deleted successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "error while deleting contact",
+      });
+    }
+  }
+);
+
 export default router;
