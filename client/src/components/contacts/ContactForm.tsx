@@ -9,8 +9,8 @@ export const ContactForm = () => {
   function handlSubmit() {}
 
   return (
-    <div className="">
-      <div className="flex items-end sm:mx-3 sm:gap-5 gap-2 bg-red-200 p-4 rounded-md">
+    <div className="w-full">
+      <div className="flex items-end sm:gap-5 gap-2 w-full bg-red-200 p-4 rounded-md">
         <InputBox
           typeValue="text"
           placeHolder="Eg: HR,Manager"
