@@ -1,5 +1,6 @@
 import z from "zod";
 
+//user
 export const signupInput = z.object({
   name: z.string(),
   email: z.string().email(),
@@ -21,6 +22,7 @@ export const updateUserPassword = z.object({
   password: z.string().min(6),
 });
 
+//job application
 export const createJobApplication = z.object({
   company: z.string(),
   role: z.string().optional(),
@@ -44,6 +46,13 @@ export const updateAppStatus = z.object({
   applicationStatus: z.string(),
 });
 
+//contacts
+export const createContacts = z.object({
+  jobID: z.string(),
+  name: z.string(),
+  contact: z.string(),
+});
+
 //user
 export type SignupInput = z.infer<typeof signupInput>;
 export type SigninInput = z.infer<typeof signinInput>;
@@ -55,3 +64,6 @@ export type UpdateApplication = z.infer<typeof updateJobApplication>;
 export type DeleteApplication = z.infer<typeof deleteJobApplication>;
 export type CreateApplication = z.infer<typeof createJobApplication>;
 export type UpdateAppstatus = z.infer<typeof updateAppStatus>;
+
+//contacts
+export type CreateContacts = z.infer<typeof createContacts>;

@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import userRouter from "./routes/user";
 import jobRouter from "./routes/jobapp";
+import contactrouter from "./routes/contact";
 import cors from "cors";
 
 const PORT = process.env.PORT || 3000;
@@ -25,6 +26,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/contact", contactrouter);
 
 app.listen(PORT, () => {
   console.log(`server started on http://localhost:${PORT}`);
