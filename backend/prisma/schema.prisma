@@ -26,19 +26,20 @@ model User {
 }
 
 model JobApplication {
-  id          String    @id @default(uuid())
+  id          String     @id @default(uuid())
   company     String
   role        String?
   location    String?
   appliedDate DateTime
   appStatus   String
   appNote     String?
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
   updatedAt   DateTime?
-  user        User      @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
   userId      String
   mail        Mail[]
+  contacts    Contacts[]
 }
 
 model Mail {
@@ -62,4 +63,14 @@ model Otp {
   createdAt      DateTime @default(now())
   attempts       Int      @default(1)
   isActive       Boolean  @default(true)
+}
+
+model Contacts {
+  id               String          @id @default(uuid())
+  name             String
+  contact          String
+  isActive         Boolean         @default(true)
+  createdAt        DateTime        @default(now())
+  JobApplication   JobApplication? @relation(fields: [jobApplicationId], references: [id])
+  jobApplicationId String
 }
