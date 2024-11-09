@@ -51,10 +51,15 @@ export const Contacts = () => {
           <div className="w-full flex justify-center">
             <Loader />
           </div>
+        ) : contactData.length === 0 ? (
+          <div className="w-full flex flex-col justify-center mt-16 text-3xl font-thin text-red-300">
+            <div className="text-center">No Contacts Available</div>
+            <div className="text-center">Add a New Contact!</div>
+          </div>
         ) : (
           contactData.map((data, index) => {
             return (
-              <div className="flex justify-center mt-1" key={index}>
+              <div className="flex justify-center mt-1 bg-cyan-50" key={index}>
                 <ContactContainer
                   key={index}
                   name={data.name}

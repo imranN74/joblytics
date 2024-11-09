@@ -31,11 +31,14 @@ export const StatusDropDown: React.FC<DropDown> = ({
       case "rejected":
         setBgColor("bg-red-500");
         break;
-      case "interview scheduled":
-        setBgColor("bg-green-400");
+      case "interviewing":
+        setBgColor("bg-orange-400");
         break;
       case "neglect":
         setBgColor("bg-slate-500");
+        break;
+      case "offered":
+        setBgColor("bg-green-500");
         break;
       default:
         setBgColor("");
@@ -76,13 +79,13 @@ export const StatusDropDown: React.FC<DropDown> = ({
 
   return (
     <div
-      className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2`}
+      className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2 sm:w-48`}
     >
       <select
         name="applicationStatus"
         id={id}
         title={appStatusValue.applicationStatus}
-        className={`focus:outline-none w-28 md:w-full md:py-2 py-1 ${bgColor} capitalize`}
+        className={`focus:outline-none w-28 md:w-full md:py-2 py-1 ${bgColor} capitalize  cursor-pointer rounded-md`}
         onChange={page === "create" ? handleCreateStatus : handleStatusChange}
         value={appStatusValue.applicationStatus}
       >
@@ -92,9 +95,10 @@ export const StatusDropDown: React.FC<DropDown> = ({
         <option className="" value="applied">
           Applied
         </option>
-        <option value={"interview scheduled"}>Interview Scheduled</option>
+        <option value={"interviewing"}>Interviewing</option>
         <option value={"rejected"}>Rejected</option>
         <option value={"neglect"}>Neglect</option>
+        <option value={"offered"}>Offered</option>
       </select>
     </div>
   );

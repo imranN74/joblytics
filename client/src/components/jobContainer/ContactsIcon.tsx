@@ -12,7 +12,7 @@ export const ContactsIcon: React.FC<{ id: string }> = ({ id }) => {
       onClick={handleContactClick}
       id={id}
       title="companies contacts"
-      className="md:px-3 px-1"
+      className="md:px-3 px-1 cursor-pointer"
     >
       <svg
         className="w-5 h-5 text-gray-800 dark:text-white"

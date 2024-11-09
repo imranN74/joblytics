@@ -1,4 +1,4 @@
-import { CopyIcon } from "../jobContainer/CopyIcon";
+import { CopyIcon } from "../CopyIcon";
 import { DeleteButton } from "../DeleteButton";
 
 export const ContactContainer: React.FC<{
@@ -12,15 +12,15 @@ export const ContactContainer: React.FC<{
       id={contactId}
       key={contactId}
     >
-      <div className="flex gap-4 justify-center w-full">
-        <div className="min-w-20 max-w-24 md:max-w-72 sm:min-w-32 overflow-auto border border-black text-center p-2 rounded-md">
+      <div className="flex gap-4 justify-center w-full ">
+        <div className="min-w-20 max-w-24 md:max-w-72 sm:min-w-32 overflow-auto border border-black text-center p-2 rounded-md capitalize">
           {name}
         </div>
         <div className="min-w-36 max-w-48 md:max-w-96 sm:min-w-64 border border-black text-center p-2 overflow-auto rounded-md">
           {contact}
         </div>
         <div className="flex items-center gap-1">
-          <CopyIcon buttonSize={6} value="" />
+          <CopyIcon buttonSize={6} value={contact} />
           <DeleteButton
             endpoint={`/contact/delete/`}
             id={contactId}

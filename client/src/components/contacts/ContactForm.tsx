@@ -60,7 +60,7 @@ export const ContactForm = () => {
 
   return (
     <div className="w-full">
-      <div className="flex items-end justify-center sm:gap-5 gap-2 bg-red-200 p-4 rounded-md w-full">
+      <div className="flex items-end justify-center sm:gap-5 gap-2 bg-red-300 p-4 rounded-md w-full">
         <InputBox
           maxlength={10}
           typeValue="text"
