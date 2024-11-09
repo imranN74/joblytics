@@ -1,4 +1,4 @@
-import { useDeleteData } from "../../hooks/deleteData";
+import { useDeleteData } from "../hooks/deleteData";
 
 export const DeleteButton: React.FC<{
   endpoint: string;

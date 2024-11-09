@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { isAuthAtom } from "../../store/atoms/atom";
+import { isAuthAtom } from "../../store/atoms/appAtom";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 

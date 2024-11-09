@@ -1,16 +1,70 @@
 import { ContactForm } from "../components/contacts/ContactForm";
 import { ContactContainer } from "../components/contacts/ContactContainer";
+import { Loader } from "../components/loader/Loader";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { contactAtom } from "../store/atoms/contactAtoms";
+import { isContactUpdated } from "../store/atoms/contactAtoms";
+
+const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const Contacts = () => {
+  type Contacts = {
+    id: string;
+    name: string;
+    contact: string;
+  };
+
+  //to check if something updated and refecth
+  const [isContactUpdatedVal, setContactUpdatedVal] =
+    useRecoilState(isContactUpdated);
+
+  const { id } = useParams();
+  const token = localStorage.getItem("jwt");
+  const [loading, setLoading] = useState(false);
+  const [contactData, setContactData] = useRecoilState<Contacts[]>(contactAtom);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${BACKEND_BASE_URL}/contact/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setContactData(response.data.response);
+        setLoading(false);
+        setContactUpdatedVal(false);
+      });
+  }, [isContactUpdatedVal]);
+
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-full md:col-start-3 md:col-end-11">
         <div className="flex justify-center mt-28 md:mt-16 sticky top-16">
           <ContactForm />
         </div>
-        <div className="flex justify-center mt-1">
-          <ContactContainer />
-        </div>
+        {loading ? (
+          <div className="w-full flex justify-center">
+            <Loader />
+          </div>
+        ) : (
+          contactData.map((data, index) => {
+            return (
+              <div className="flex justify-center mt-1" key={index}>
+                <ContactContainer
+                  key={index}
+                  name={data.name}
+                  contact={data.contact}
+                  contactId={data.id}
+                />
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

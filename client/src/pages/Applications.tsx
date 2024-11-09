@@ -2,7 +2,7 @@ import { AppContainer } from "../components/jobContainer/AppContainer";
 import { AddButton } from "../components/jobContainer/AddButton";
 import { CreateApplicationForm } from "../components/jobContainer/CreateApplicationForm";
 import { useRecoilValue } from "recoil";
-import { modalFormAtom } from "../store/atoms/atom";
+import { modalFormAtom } from "../store/atoms/appAtom";
 import { JobAppMsg } from "../components/jobContainer/JobAppMsg";
 import { RefreshIcon } from "../components/jobContainer/RefreshIcon";
 

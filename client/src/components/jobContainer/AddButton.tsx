@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { modalFormAtom, modalFormPageAtom } from "../../store/atoms/atom";
-import { isAuthAtom } from "../../store/atoms/atom";
+import { modalFormAtom, modalFormPageAtom } from "../../store/atoms/appAtom";
+import { isAuthAtom } from "../../store/atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

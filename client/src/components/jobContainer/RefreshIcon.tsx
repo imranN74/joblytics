@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { isJobAppUpdate } from "../../store/atoms/atom";
+import { isJobAppUpdate } from "../../store/atoms/appAtom";
 import { toast } from "react-toastify";
 
 export const RefreshIcon = () => {

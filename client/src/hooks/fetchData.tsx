@@ -3,9 +3,9 @@ import {
   useRecoilValueLoadable,
   useRecoilState,
 } from "recoil";
-import { appDataAtom } from "../store/atoms/atom";
-import { fetchDataSelector } from "../store/atoms/atom";
-import { isJobAppUpdate } from "../store/atoms/atom";
+import { appDataAtom } from "../store/atoms/appAtom";
+import { fetchDataSelector } from "../store/atoms/appAtom";
+import { isJobAppUpdate } from "../store/atoms/appAtom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -51,7 +51,7 @@ export const useFetchData = () => {
         setIsUpdatedStateValue(false);
       }
     } catch (error) {
-      toast.warning("something went wrong");
+      toast.error("something went wrong");
     }
   }, [isUpdatedStateValue]);
 

@@ -48,13 +48,6 @@ export const fetchDataSelector = selectorFamily({
   },
 });
 
-//for loggedin state
-const isToken = localStorage.getItem("jwt");
-export const isAuthAtom = atom({
-  key: "isLoggedIn",
-  default: isToken ? true : false,
-});
-
 //track jobApplication state
 export const isJobAppUpdate = atom({
   key: "isJobAppUpdate",

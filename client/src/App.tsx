@@ -4,7 +4,7 @@ import { Applications } from "./pages/Applications";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
 import { Navbar } from "./components/Navbar";
-import { isAuthAtom } from "./store/atoms/atom";
+import { isAuthAtom } from "./store/atoms/userAtom";
 import { useRecoilValue } from "recoil";
 import { Navigate } from "react-router-dom";
 import { Analytics } from "./pages/Analytics";

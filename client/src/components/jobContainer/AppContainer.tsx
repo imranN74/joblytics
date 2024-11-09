@@ -1,4 +1,4 @@
-import { DeleteButton } from "./DeleteButton";
+import { DeleteButton } from "../DeleteButton";
 import { EditButton } from "./EditButton";
 import { StatusDropDown } from "./StatusDropDown";
 import { AppValues } from "./AppValues";

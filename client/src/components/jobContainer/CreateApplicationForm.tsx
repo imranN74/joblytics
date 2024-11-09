@@ -3,15 +3,15 @@ import { InputBox } from "../InputBox";
 import { StatusDropDown } from "./StatusDropDown";
 import { TextArea } from "../TextArea";
 import { SubmitButton } from "../SubmitButton";
-import { modalFormAtom } from "../../store/atoms/atom";
+import { modalFormAtom } from "../../store/atoms/appAtom";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { CreateApplication } from "@imrannazir/joblytics-zod";
 import { toast } from "react-toastify";
-import { isJobAppUpdate } from "../../store/atoms/atom";
+import { isJobAppUpdate } from "../../store/atoms/appAtom";
 import { useRecoilValue } from "recoil";
-import { specificAppAtom } from "../../store/atoms/atom";
-import { modalFormPageAtom } from "../../store/atoms/atom";
+import { specificAppAtom } from "../../store/atoms/appAtom";
+import { modalFormPageAtom } from "../../store/atoms/appAtom";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 

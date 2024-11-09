@@ -8,7 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { Link } from "react-router-dom";
-import { isAuthAtom } from "../store/atoms/atom";
+import { isAuthAtom } from "../store/atoms/userAtom";
 import { useSetRecoilState } from "recoil";
 import { SignContent } from "../components/SignContent";
 

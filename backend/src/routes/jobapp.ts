@@ -180,49 +180,53 @@ router.post(
 );
 
 //delete job application
-router.post("/delete/:id", async (req: Request, res: Response) => {
-  const validateData = deleteJobApplication.safeParse(req.params.id);
+router.post(
+  "/delete/:id",
+  userAuthorization,
+  async (req: Request, res: Response) => {
+    const validateData = deleteJobApplication.safeParse(req.params.id);
 
-  try {
-    if (validateData.error) {
-      console.log(validateData.error);
-      res.status(statusCode.notFound).json({
-        message: "error while deleting the application, try again",
-      });
-      return;
-    }
-    if (validateData.success) {
-      const jobId = validateData.data;
-      await prisma.jobApplication.update({
-        data: {
-          isActive: false,
-        },
-        where: {
-          id: jobId,
-        },
-      });
+    try {
+      if (validateData.error) {
+        console.log(validateData.error);
+        res.status(statusCode.notFound).json({
+          message: "error while deleting the application, try again",
+        });
+        return;
+      }
+      if (validateData.success) {
+        const jobId = validateData.data;
+        await prisma.jobApplication.update({
+          data: {
+            isActive: false,
+          },
+          where: {
+            id: jobId,
+          },
+        });
 
-      //making reminder mail inactive on application delete
-      await prisma.mail.updateMany({
-        data: {
-          isActive: false,
-        },
-        where: {
-          jobApplicationId: jobId,
-        },
+        //making reminder mail inactive on application delete
+        await prisma.mail.updateMany({
+          data: {
+            isActive: false,
+          },
+          where: {
+            jobApplicationId: jobId,
+          },
+        });
+        res.status(statusCode.accepted).json({
+          message: "application deleted",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "errro while deleting,try again",
       });
-      res.status(statusCode.accepted).json({
-        message: "application deleted",
-      });
-      return;
     }
-  } catch (error) {
-    console.log(error);
-    res.status(statusCode.serverError).json({
-      message: "errro while deleting,try again",
-    });
   }
-});
+);
 
 //update job application
 router.post(

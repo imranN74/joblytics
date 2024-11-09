@@ -1,8 +1,8 @@
 import { useSetRecoilState } from "recoil";
-import { modalFormAtom } from "../../store/atoms/atom";
+import { modalFormAtom } from "../../store/atoms/appAtom";
 import axios from "axios";
-import { specificAppAtom } from "../../store/atoms/atom";
-import { modalFormPageAtom } from "../../store/atoms/atom";
+import { specificAppAtom } from "../../store/atoms/appAtom";
+import { modalFormPageAtom } from "../../store/atoms/appAtom";
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
 export const EditButton: React.FC<{ id: string }> = ({ id }) => {

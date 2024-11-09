@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isAuthAtom } from "../../store/atoms/atom";
+import { isAuthAtom } from "../../store/atoms/appAtom";
 import { useSetRecoilState } from "recoil";
 
 export const Profile = () => {

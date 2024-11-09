@@ -48,7 +48,7 @@ export const updateAppStatus = z.object({
 
 //contacts
 export const createContacts = z.object({
-  jobID: z.string(),
+  jobId: z.string(),
   name: z.string(),
   contact: z.string(),
 });

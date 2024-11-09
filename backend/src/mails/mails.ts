@@ -74,7 +74,7 @@ cron.schedule("0 8 * * *", async () => {
       .replace("{{userName}}", element.User.name)
       .replace("{{company}}", element.JobApplication?.company ?? "{****}")
       .replace("{{role}}", element.JobApplication?.role ?? "{****}")
-      .replace("{{Joblytics}}", "http://localhost:5173/applications");
+      .replace("{{Joblytics}}", "https://joblytics.vercel.app/");
     if (daysPassed >= 5) {
       sendReminderMails({
         userEmail: element.User.email,

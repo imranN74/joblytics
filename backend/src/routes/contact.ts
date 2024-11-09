@@ -7,6 +7,7 @@ import { PrismaClient } from "@prisma/client";
 const router = Router();
 const prisma = new PrismaClient();
 
+//to create contact
 router.post(
   "/create",
   userAuthorization,
@@ -20,15 +21,16 @@ router.post(
         });
       }
       if (validateData.success) {
-        const { name, contact, jobID } = validateData.data;
-        await prisma.contacts.create({
+        const { name, contact, jobId } = validateData.data;
+        const response = await prisma.contacts.create({
           data: {
-            jobApplicationId: jobID,
+            jobApplicationId: jobId,
             name: name,
             contact: contact,
           },
         });
         res.status(statusCode.created).json({
+          response,
           message: "contact added successfully",
         });
       }
@@ -41,6 +43,7 @@ router.post(
   }
 );
 
+//to delete contact
 router.post(
   "/delete/:id",
   userAuthorization,
@@ -66,5 +69,28 @@ router.post(
     }
   }
 );
+
+//to get all contacts of a job application
+router.get("/:id", userAuthorization, async (req: Request, res: Response) => {
+  const jobId = req.params.id;
+  try {
+    const response = await prisma.contacts.findMany({
+      where: {
+        jobApplicationId: jobId,
+        isActive: true,
+      },
+    });
+
+    res.status(statusCode.accepted).json({
+      message: "contacts fetched successfully",
+      response,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(statusCode.serverError).json({
+      message: "error while fetching contacts",
+    });
+  }
+});
 
 export default router;
