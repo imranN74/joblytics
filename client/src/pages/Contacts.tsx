@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { contactAtom } from "../store/atoms/contactAtoms";
 import { isContactUpdated } from "../store/atoms/contactAtoms";
 import { toast } from "react-toastify";
+import { CompanyHeader } from "../components/contacts/CompanyHeader";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -52,6 +53,10 @@ export const Contacts = () => {
         <div className="flex justify-center mt-28 md:mt-16 sticky top-16">
           <ContactForm />
         </div>
+        <div className="flex justify-center sticky top-2 bg-red-100">
+          <CompanyHeader id={id ?? ""} />
+        </div>
+
         {loading ? (
           <div className="w-full flex justify-center mt-16">
             <Loader />
