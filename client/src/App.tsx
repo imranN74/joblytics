@@ -10,6 +10,7 @@ import { Navigate } from "react-router-dom";
 import { Analytics } from "./pages/Analytics";
 import { Contacts } from "./pages/Contacts";
 import { Footer } from "./components/Footer";
+import { About } from "./components/About";
 
 function App() {
   const isLoggedIn = useRecoilValue(isAuthAtom);
@@ -20,6 +21,7 @@ function App() {
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/aboutus" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route
             path="/signin"

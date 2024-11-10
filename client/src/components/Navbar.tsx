@@ -26,7 +26,7 @@ export const Navbar = () => {
               </li>
 
               <li className="md:px-4 md:py-2 hover:text-indigo-500">
-                <a href="">AboutUs</a>
+                <a href="/aboutus">AboutUs</a>
               </li>
             </ul>
           </div>
