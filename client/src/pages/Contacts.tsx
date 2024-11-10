@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { contactAtom } from "../store/atoms/contactAtoms";
 import { isContactUpdated } from "../store/atoms/contactAtoms";
+import { toast } from "react-toastify";
 
 const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -38,6 +39,10 @@ export const Contacts = () => {
         setContactData(response.data.response);
         setLoading(false);
         setContactUpdatedVal(false);
+      })
+      .catch((error) => {
+        toast.error(error.data.response.message);
+        setLoading(false);
       });
   }, [isContactUpdatedVal]);
 
