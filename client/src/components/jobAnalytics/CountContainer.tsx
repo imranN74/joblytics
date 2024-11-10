@@ -4,13 +4,13 @@ export const CountContainer: React.FC<{
   bgColor: string;
 }> = ({ count, status, bgColor }) => {
   return (
-    <div className="flex flex-col items-center font-thin">
+    <div className="flex gap-1 items-center font-semibold text-sm">
+      <div>{status}</div>
       <div
-        className={`border-2 p-5 rounded-full text-center w-16 h-16 ${bgColor}`}
+        className={`border flex border-black w-8 h-8 rounded-full justify-center items-center ${bgColor}`}
       >
         <div className="font-normal">{count}</div>
       </div>
-      <div>{status}</div>
     </div>
   );
 };

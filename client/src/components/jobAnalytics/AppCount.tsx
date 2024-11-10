@@ -2,45 +2,12 @@ import { Loader } from "../loader/Loader";
 import { useFetchData } from "../../hooks/fetchData";
 import { ErrorPage } from "../jobContainer/ErrorPage";
 import { CountContainer } from "./CountContainer";
-import { useMemo } from "react";
+import { useFilterAppStatus } from "../../hooks/filter";
 
 export const AppCount = () => {
-  type JobApp = {
-    company: string;
-    role: string;
-    location: string;
-    appliedDate: Date;
-    id: string;
-    appNote: string;
-    user: {
-      name: string;
-    };
-    appStatus: string;
-  };
-
   const { appData, fetchDataValue } = useFetchData();
 
-  // to get data of all application status
-  const { offeredData, interviewingData, rejectedData } = useMemo(() => {
-    return appData.reduce(
-      (
-        acc: {
-          offeredData: JobApp[];
-          interviewingData: JobApp[];
-          rejectedData: JobApp[];
-        },
-        element
-      ) => {
-        if (element.appStatus === "offered") acc.offeredData.push(element);
-        else if (element.appStatus === "rejected")
-          acc.rejectedData.push(element);
-        else if (element.appStatus === "interviewing")
-          acc.interviewingData.push(element);
-        return acc;
-      },
-      { offeredData: [], interviewingData: [], rejectedData: [] }
-    );
-  }, [appData]);
+  const { offeredData, interviewingData, rejectedData } = useFilterAppStatus();
 
   {
     if (fetchDataValue.state === "loading") {
@@ -53,13 +20,13 @@ export const AppCount = () => {
       return <ErrorPage />;
     } else if (fetchDataValue.state === "hasValue" && appData.length > 0) {
       return (
-        <div className="h-screen flex flex-col justify-center items-center text-xl">
+        <div className="flex flex-col items-center bg-red-200 w-full py-1">
           <CountContainer
             count={appData.length}
             bgColor="bg-yellow-500"
             status="Applied"
           />
-          <div className="flex gap-10 mt-2">
+          <div className="flex gap-5 mt-2">
             <CountContainer
               count={offeredData.length}
               bgColor="bg-green-500"

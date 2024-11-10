@@ -18,6 +18,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.27.0",
     "react-toastify": "^10.0.6",
+    "recharts": "^2.13.3-alpha.1",
     "recoil": "^0.7.7"
   },
   "devDependencies": {

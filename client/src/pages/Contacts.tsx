@@ -50,10 +50,10 @@ export const Contacts = () => {
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-full md:col-start-3 md:col-end-11">
-        <div className="flex justify-center mt-28 md:mt-16 sticky top-16">
+        <div className="flex justify-center mt-28 md:mt-16 sticky sm:top-16 top-28">
           <ContactForm />
         </div>
-        <div className="flex justify-center sticky top-2 bg-red-100">
+        <div className="flex justify-center sticky top-52 sm:top-40 bg-red-100">
           <CompanyHeader id={id ?? ""} />
         </div>
 
