@@ -105,6 +105,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="company"
               maxlength={10}
+              maxwidth="min-w-52"
             />
             <InputBox
               value={formValue?.role ?? ""}
@@ -113,6 +114,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="role"
               maxlength={10}
+              maxwidth="min-w-52"
             />
           </div>
           <div className="md:flex md:justify-around">
@@ -123,6 +125,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="location"
               maxlength={10}
+              maxwidth="min-w-52"
             />
             <InputBox
               value={formValue.appliedDate}
@@ -131,6 +134,7 @@ export const CreateApplicationForm = () => {
               handleOnChange={handleChange}
               idValue="appliedDate"
               max={todayDate}
+              maxwidth="min-w-52"
             />
           </div>
           {page === "create" ? (
