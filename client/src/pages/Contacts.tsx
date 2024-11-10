@@ -48,7 +48,7 @@ export const Contacts = () => {
           <ContactForm />
         </div>
         {loading ? (
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center mt-16">
             <Loader />
           </div>
         ) : contactData.length === 0 ? (

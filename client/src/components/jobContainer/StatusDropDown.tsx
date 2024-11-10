@@ -79,7 +79,7 @@ export const StatusDropDown: React.FC<DropDown> = ({
 
   return (
     <div
-      className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2 sm:w-48`}
+      className={`font-semibold border ${bgColor} flex justify-center border-black rounded-md md:px-2`}
     >
       <select
         name="applicationStatus"

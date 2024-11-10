@@ -18,6 +18,10 @@ const BACKEND_BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 export const CreateApplicationForm = () => {
   const token = localStorage.getItem("jwt");
 
+  //current date
+  const date = new Date();
+  const todayDate = date.toISOString().split("T")[0];
+
   // to check if the state changed
   const setJobAppUpdate = useSetRecoilState(isJobAppUpdate);
 
@@ -51,7 +55,7 @@ export const CreateApplicationForm = () => {
 
   async function onClickSubmit() {
     const { company, appliedDate, applicationStatus } = formValue;
-    if (!company && !appliedDate && !applicationStatus) {
+    if (!company || !appliedDate || !applicationStatus) {
       toast.warn("Required fields are empty");
     } else {
       try {
@@ -81,7 +85,6 @@ export const CreateApplicationForm = () => {
         setJobAppUpdate(true);
       } catch (error: any) {
         toast.warning(error.response.data.message);
-        setModalView(false);
       }
     }
   }
@@ -127,6 +130,7 @@ export const CreateApplicationForm = () => {
               typeValue="date"
               handleOnChange={handleChange}
               idValue="appliedDate"
+              max={todayDate}
             />
           </div>
           {page === "create" ? (
