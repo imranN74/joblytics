@@ -11,6 +11,7 @@ import { Analytics } from "./pages/Analytics";
 import { Contacts } from "./pages/Contacts";
 import { Footer } from "./components/Footer";
 import { About } from "./components/About";
+import { Profile } from "./pages/Profile";
 
 function App() {
   const isLoggedIn = useRecoilValue(isAuthAtom);
@@ -39,6 +40,12 @@ function App() {
             path="/analytics"
             element={
               isLoggedIn ? <Analytics /> : <Navigate to="/signup" replace />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              isLoggedIn ? <Profile /> : <Navigate to="/signup" replace />
             }
           />
 

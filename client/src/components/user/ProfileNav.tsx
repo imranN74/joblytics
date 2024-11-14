@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { isAuthAtom } from "../../store/atoms/userAtom";
 import { useSetRecoilState } from "recoil";
 
-export const Profile = () => {
+export const ProfileNav = () => {
   const [profileView, setProfileView] = useState(false);
 
   //set logged in flag
@@ -61,6 +61,7 @@ export const Profile = () => {
           <li
             onClick={() => {
               setProfileView(false);
+              navigate("/profile");
             }}
             className="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer"
           >

@@ -1,7 +1,7 @@
 import { Logo } from "./Logo";
 import { useRecoilValue } from "recoil";
 import { isAuthAtom } from "../store/atoms/userAtom";
-import { Profile } from "./user/Profile";
+import { ProfileNav } from "./user/ProfileNav";
 import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
@@ -32,7 +32,7 @@ export const Navbar = () => {
           </div>
           <div className="order-2 md:order-3 mr-3">
             {isLoggedIn ? (
-              <Profile />
+              <ProfileNav />
             ) : (
               <button
                 title="signup to continue"
