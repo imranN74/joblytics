@@ -218,4 +218,28 @@ router.post("/otp", signUpValidate, async (req: Request, res: Response) => {
   }
 });
 
+//get user's data
+router.get(
+  "/profile",
+  userAuthorization,
+  async (req: Request, res: Response) => {
+    const userId = res.locals.userId;
+    try {
+      const response = await prisma.user.findFirst({
+        where: {
+          id: userId,
+        },
+      });
+      res.status(statusCode.accepted).json({
+        response,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(statusCode.serverError).json({
+        message: "something went wrong",
+      });
+    }
+  }
+);
+
 export default router;
