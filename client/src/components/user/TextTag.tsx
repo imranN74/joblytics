@@ -8,7 +8,7 @@ export const TextTag: React.FC<TextValue> = ({ value, size, editable }) => {
       <div className={`${size ? size : "text-xl"} text-center mt-2`}>
         {value}
       </div>
-      <div>{editable ? <EditButton /> : ""}</div>
+      <div>{editable ? "edit" : ""}</div>
     </div>
   );
 };
