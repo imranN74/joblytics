@@ -1,5 +1,3 @@
-import { EditButton } from "../jobContainer/EditButton";
-
 type TextValue = { value: string; size?: string; editable?: boolean };
 
 export const TextTag: React.FC<TextValue> = ({ value, size, editable }) => {
