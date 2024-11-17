@@ -25,7 +25,7 @@ function userAuthorization(req: Request, res: Response, next: NextFunction) {
       next();
     } else {
       res.status(statusCode.notAuthorized).json({
-        message: "you not authorized",
+        message: "you are not authorized",
       });
     }
   } catch (error) {

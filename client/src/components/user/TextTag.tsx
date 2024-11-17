@@ -1,9 +1,14 @@
-type TextValue = { value: string; size?: string };
+import { EditButton } from "../jobContainer/EditButton";
 
-export const TextTag: React.FC<TextValue> = ({ value, size }) => {
+type TextValue = { value: string; size?: string; editable?: boolean };
+
+export const TextTag: React.FC<TextValue> = ({ value, size, editable }) => {
   return (
-    <div className={`${size ? size : "text-2xl"} text-center mt-2`}>
-      {value}
+    <div className="flex justify-between items-center gap-10">
+      <div className={`${size ? size : "text-xl"} text-center mt-2`}>
+        {value}
+      </div>
+      <div>{editable ? <EditButton /> : ""}</div>
     </div>
   );
 };
