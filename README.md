@@ -30,7 +30,7 @@ To get started with this project, you'll need to have **Node.js** and **npm** (o
    Clone the repository and navigate to the project directory:
 
 ```bash
- git clone https://github.com/imranN74/SyncPad.git
+ git clone https://github.com/imranN74/joblytics.git
  cd client
 ```
 
