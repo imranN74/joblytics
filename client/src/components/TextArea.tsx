@@ -2,15 +2,16 @@ import { ChangeEvent } from "react";
 
 export const TextArea: React.FC<{
   value: string;
+  label: string;
   textAreaChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-}> = ({ value, textAreaChange }) => {
+}> = ({ value, textAreaChange, label }) => {
   return (
     <div>
       <label
         htmlFor="message"
         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
-        Your Note
+        {label}
       </label>
       <textarea
         value={value}

@@ -152,6 +152,7 @@ export const CreateApplicationForm = () => {
             <TextArea
               value={formValue?.appNote ?? ""}
               textAreaChange={handleChange}
+              label="Your Note"
             />
           </div>
           <div className="flex justify-center mt-2">
